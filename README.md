@@ -12,7 +12,7 @@ Repository ini berisi perjalanan saya belajar PHP dari nol.
 - Day 7: Function
 
 ## Goals
-Konsisten belajar tiap hari walaupun hanya 30 menit untuk membentuk habit dan mencapai tujuan menjadi programmer.
+Konsisten belajar setiap hari walaupun hanya 30 menit untuk membentuk habit dan mencapai tujuan menjadi programmer.
 
 ## How to Run
 1. Clone repositori ini:
@@ -24,7 +24,7 @@ Konsisten belajar tiap hari walaupun hanya 30 menit untuk membentuk habit dan me
 4. Buka di browser:
    http://localhost:8000
 5. Untuk membuka file tertentu:
-   http://localhost:8000/nama_file.php 
+   http://localhost:8000/nama_file.php
 
 ## Notes
 Semua kode ditulis manual untuk memahami konsep, bukan hanya copy-paste, serta melatih muscle memory.
