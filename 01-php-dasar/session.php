@@ -23,7 +23,7 @@ if (isset($_GET['aksi']) && $_GET['aksi'] == 'login') {
 if (isset($_SESSION['karyawan'])) {
     // kalau session ada isisnya tampilkan data
     echo "Satatus: <b>SUDAH LOGIN</b><br>";
-    echo "Selamat bekerja, bos <b>" . $_SESSION['karyawan'] . "<br>!<br>";
+    echo "Selamat bekerja, bos <b>" . $_SESSION['karyawan'] . "</b>!<br>";
     echo "Hak Akses: " . $_SESSION['akses'] . "<br><br>";
 
     // tombol untuk menghancurkan session
