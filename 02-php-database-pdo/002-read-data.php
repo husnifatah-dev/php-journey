@@ -32,6 +32,9 @@ try {
         echo "<td>" . $baris['nama'] . "</td>";
         echo "<td>" . $baris['shift'] . "</td>";
         echo "<td>" . $baris['posisi'] . "</td>";
+
+        // tambah tombol edit yang mengirimkan ID lewat URL (metode GET)
+        echo "<td><a href='004-update-data.php?id=" . $baris['id'] . "'>Edit</a></td>";
         echo "</tr>";
     }
 
