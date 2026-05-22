@@ -34,7 +34,11 @@ try {
         echo "<td>" . $baris['posisi'] . "</td>";
 
         // tambah tombol edit yang mengirimkan ID lewat URL (metode GET)
-        echo "<td><a href='004-update-data.php?id=" . $baris['id'] . "'>Edit</a></td>";
+        echo "<td>
+                <a href='004-update-data.php?id=" . $baris['id'] . "'>Edit</a> |
+                <a href='005-delete-data.php?id=" . $baris['id'] . "' onclick=\"return confirm ('Yakin ingin menghapus pekerja ini dari sistem?');\">Hapus</a>
+              </td>";
+
         echo "</tr>";
     }
 
