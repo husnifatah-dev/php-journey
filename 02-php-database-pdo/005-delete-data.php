@@ -21,6 +21,6 @@ try {
     header("Location: 002-read-data.php");
     exit; //waji supaya script benar-benar berhenti
 } catch (PDOException $e) {
-    echo "<b>[GAGAL MENGHAPUS</b> Terjadi kesalahan: " . $e->getMessage();
+    echo "<b>[GAGAL MENGHAPUS]</b> Terjadi kesalahan: " . $e->getMessage();
 }
 ?>
