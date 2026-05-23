@@ -43,7 +43,7 @@ if (isset($_POST['simpan_data'])) {
     <label>Nama Pekerja:</label><br>
     <input type="text" name="nama" required><br><br>
 
-    <lable>Shift:</label><br>
+    <label>Shift:</label><br>
     <select name="shift">
         <option value="Pagi">Pagi</option>
         <option value="Malam">Malam</option>
