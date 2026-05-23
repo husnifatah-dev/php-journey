@@ -29,7 +29,7 @@ if (isset($_POST['update_data'])) {
         ]);
 
         echo "<p style='color:green;'><b>[SUKSES]</b>Data berhasil diubah!</p>";
-        echo "<a href='002-read-data.php>'Kembali ke Daftar Pekerja</a><hr>";
+        echo "<a href='002-read-data.php'>Kembali ke Daftar Pekerja</a><hr>";
     } catch (PDOException $e) {
         echo "<p style='color: red;'><b>[GAGAL]</b> " . $e->getMessage() . "</p>";
     }
