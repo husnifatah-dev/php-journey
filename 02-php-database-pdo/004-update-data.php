@@ -44,7 +44,7 @@ $data_lama = $stmt_tarik->fetch(PDO::FETCH_ASSOC);
 
 // kalau ternyata id yang di kueri ngga ada di di database
 if (!$data_lama) {
-    die("Data pekerja tidak ditermukan!");
+    die("Data pekerja tidak ditemukan!");
 }
 
 ?>
