@@ -1,5 +1,5 @@
 <?php 
-echo "===   CONSTRUCTOR (FUNGSI OTOMATIS)   ====<br><br>";
+echo "===   CONSTRUCTOR (FUNGSI OTOMATIS)   ==== <br><br>";
 
 class KaryawanPabrik {
     public $nama;
@@ -14,9 +14,9 @@ class KaryawanPabrik {
         echo "<i>[SISTEM] Data karyawan baru bernama <b>{$this->nama}</b> berhasil didaftarkan.</i><br>";
     }
 
-    public function cetakIdCard() {
+    public function cetakIDCard() {
         return "
-        <div style='border: 3px solid black; padding: 10px; width: 250px; margin-bottom: 10px; margin-bottom: 10px'>
+        <div style='border: 3px solid black; padding: 10px; width: 250px; margin-bottom: 10px;'>
        <b>ID CARD PT HUSNI FATAH MAKMUR</b><hr>
        Nama: {$this->nama} <br>
        Divisi: {$this->divisi} <br>
@@ -30,8 +30,8 @@ $pekerja1 = new KaryawanPabrik("Husni Fatah", "Produksi", "Malam");
 $pekerja2 = new KaryawanPabrik("Budi Lupi", "Gudang", "Pagi");
 
 echo "<br><b>[MENCETAK ID CARD]</b><br>";
-echo $pekerja1->cetakIdCard();
-echo $pekerja2->cetakIdCard();
+echo $pekerja1->cetakIDCard();
+echo $pekerja2->cetakIDCard();
 
 
 ?>
