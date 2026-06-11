@@ -1,27 +1,21 @@
 <?php
 
 class Mahasiswa_model {
-    private $mhs = [
-        [
-           "nama" => "Husni Fatah",
-           "nim" => "02482472472",
-           "email" => "husnifatah@gmail.com",
-            "prodi" => "Sistem Informasi"
-        ],
-        [
-           "nama" => "Naruto Uzumaki",
-           "nim" => "924375345",
-           "email" => "naruto@gmail.com",
-            "prodi" => "Ninja"
-        ],
-        [
-           "nama" => "Light Yagami",
-           "nim" => "7652043",
-           "email" => "l@gmail.com",
-            "prodi" => "Kriminologi"
-        ],
-    ];
+    private $dbh; //database handler
+    private $stmt; //statement
+
+    public function __construct() {
+        // data source name
+        $dsn = 'mysql:host=127.0.0.1;dbname=phpmvc';
+        try {
+            $this->dbh = new PDO($dsn, 'phpuser', '12345');
+        } catch(PDOException $e) {
+            die($e->getMessage());
+        }
+    }
     public function getAllMahasiswa() {
-        return $this->mhs;
+        $this->stmt = $this->dbh->prepare('SELECT * FROM mahasiswa');
+        $this->stmt->execute();
+        return $this->stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 }
