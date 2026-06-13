@@ -19,4 +19,21 @@ class Mahasiswa_model {
         $this->db->bind('id', $id);
         return $this->db->single();
     }
+
+    public function tambahDataMahasiswa($data) {
+        // Sebutkan nama kolom secara eksplisit agar lebih aman dan terhindar dari error auto-increment
+        $query = "INSERT INTO mahasiswa (nama, nim, email, prodi) 
+                  VALUES (:nama, :nim, :email, :prodi)";
+
+        $this->db->query($query);
+        $this->db->bind('nama', $data['nama']);
+        $this->db->bind('nim', $data['nim']);
+        $this->db->bind('email', $data['email']);
+        $this->db->bind('prodi', $data['prodi']);
+
+        $this->db->execute();
+
+        return $this->db->rowCount();
+    }
+    
 }
