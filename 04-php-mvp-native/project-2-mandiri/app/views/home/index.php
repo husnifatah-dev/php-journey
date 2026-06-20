@@ -1,14 +1,8 @@
-<div class="container mt-4">
-    <h3>Daftar Inventaris Gudang</h3>
-    <?php  var_dump($data['barang']);   ?>
-    <hr>
-    <ul>
-        <?php foreach($data['barang'] as $brg) : ?>
-            <li>
-                <strong><?= $brg['nama_barang']; ?></strong>
-                (Kategori: <?= $brg['kategori']; ?>) - Stok: <?= $brg['stok']; ?>
-            </li>
-        <?php endforeach; ?>
-    </ul>
-
+<div class="container">
+    <div class="p-5 mb-4 mt-4 bg-light rounded-3">
+    <div class="container-fluid py-5">
+        <h1 class="display-5 fw-bold">Selamat Datang di Web Saya!</h1>
+        <button class="btn btn-primary btn-lg" type="button">Pelajari Selengkapnya</button>
+    </div>
+</div>
 </div>
