@@ -8,4 +8,16 @@ Class Barang extends Controller {
         $this->view('barang/index', $data);
         $this->view('templates/footer');
     }
+
+        
+    public function tambah() {
+        if($this->model('Barang_model')->tambahBarang($_POST) > 0) {
+            Flasher::setFlash('berhasil', 'ditambahkan', 'success');
+        } else {
+            Flasher::setFlash('gagal', 'ditambahkan', 'danger');
+        }
+        header('Location: ' . BASEURL . '/barang');
+        exit;
+    }
+    
 }
