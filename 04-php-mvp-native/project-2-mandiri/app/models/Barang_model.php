@@ -12,11 +12,18 @@ class Barang_model {
         return $this->db->resultSet();
     }
 
+    public function getBarangById($id) {
+        $this->db->query('SELECT * FROM ' . $this->table . ' WHERE id=:id');
+        $this->db->bind('id', $id);
+        return $this->db->single();
+    }
+
     public function tambahBarang($data) {
-        $query = "INSERT INTO barang (nama_barang, kategori, stok) VALUES (:nama_barang, :kategori, :stok)";
+        $query = "INSERT INTO " . $this->table . " (nama_barang, kategori, stok) VALUES (:nama_barang, :kategori, :stok)";
 
         $data['nama_barang'] = ucwords(strtolower($data['nama_barang']));
         $data['kategori'] = ucwords(strtolower($data['kategori']));
+        
         $this->db->query($query);
         $this->db->bind('nama_barang', $data['nama_barang']);
         $this->db->bind('kategori', $data['kategori']);
@@ -26,8 +33,4 @@ class Barang_model {
 
         return $this->db->rowCount();
     }
-    
-} 
- 
- 
- 
+}

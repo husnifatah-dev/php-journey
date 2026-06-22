@@ -1,16 +1,24 @@
 <div class="container mt-4">
-    <h3>Halaman Barang</h3>
-    <hr>
-    <ul>
-        <?php foreach($data['brg'] as $brg) : ?>
-            <li>
-                <strong><?= $brg['nama_barang']; ?></strong>
-                (Kategori: <?= $brg['kategori']; ?>) - Stok: <?= $brg['stok']; ?>
-            </li>
-        <?php endforeach; ?>
-    </ul>
+    <div class="row">
+        <div class="col-lg-6">
+            <?php Flasher::flash(); ?>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-6">
+            <h3>Daftar Barang</h3>
+            <ul class="list-group">
+                <?php foreach($data['brg'] as $brg) : ?>
+                    <li class="list-group-item ">
+                        <?= $brg['nama_barang'] ?>
+                        <a href="<?= BASEURL; ?>/barang/detail/<?= $brg['id']; ?>" class="badge rounded-pill text-bg-primary text-decoration-none fw-bold float-end ms-1">detail</a>
+                    </li>
+                <?php endforeach; ?>
+            </ul>
+        </div>
+    </div>
     <div class="row mb-3">
-    <div class="col-lg-6">
+    <div class="col-lg-6 mt-3">
         <button type="button" class="btn btn-primary tombolTambahData" data-bs-toggle="modal" data-bs-target="#formModal">
             Tambah Data Barang
         </button>

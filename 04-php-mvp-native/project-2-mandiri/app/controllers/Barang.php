@@ -1,11 +1,19 @@
 <?php
 
-Class Barang extends Controller {
+class Barang extends Controller {
     public function index() {
         $data['judul'] = 'Inventaris Gudang';
         $data['brg'] = $this->model('Barang_model')->getAllBarang();
         $this->view('templates/header', $data);
         $this->view('barang/index', $data);
+        $this->view('templates/footer');
+    }
+
+    public function detail($id) {
+        $data['judul'] = 'Detail Barang';
+        $data['brg'] = $this->model('Barang_model')->getBarangById($id);
+        $this->view('templates/header', $data);
+        $this->view('barang/detail', $data);
         $this->view('templates/footer');
     }
 
