@@ -33,4 +33,20 @@ class Barang_model {
 
         return $this->db->rowCount();
     }
+
+    public function hapusDataBarang($id) {
+
+        try {
+            $query = "DELETE FROM barang WHERE id = :id";
+            $this->db->query($query);
+            $this->db->bind('id', $id);
+    
+            $this->db->execute();
+    
+            return $this->db->rowCount();
+
+    } catch (PDOException $e) {
+        return 0;
+    }
+    }
 }

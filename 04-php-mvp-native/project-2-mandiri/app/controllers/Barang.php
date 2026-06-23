@@ -27,5 +27,26 @@ class Barang extends Controller {
         header('Location: ' . BASEURL . '/barang');
         exit;
     }
+
+    public function hapus($id) {
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            Flasher::setFlash('gagal', 'dihapus (Method tidak diizinkan)', 'danger');
+            header('Location: ' . BASEURL . '/barang');
+            exit;
+        }
+        try {
+            if($this->model('Barang_model')->hapusDataBarang($id) > 0 ) {
+                Flasher::setFlash('berhasil', 'dihapus', 'success');
+            } else {
+                Flasher::setFlash('gagal', 'dihapus (Data tidak ditemukan)', 'warning');
+            }
+        } catch (Exception $e) {
+            Flasher::setFlash('gagal', 'dihapus karena error sistem', 'danger');
+
+        }
+
+        header('Location: ' . BASEURL . '/barang');
+        exit;
+    }
     
 }

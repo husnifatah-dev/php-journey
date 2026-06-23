@@ -9,9 +9,16 @@
             <h3>Daftar Barang</h3>
             <ul class="list-group">
                 <?php foreach($data['brg'] as $brg) : ?>
-                    <li class="list-group-item ">
-                        <?= $brg['nama_barang'] ?>
-                        <a href="<?= BASEURL; ?>/barang/detail/<?= $brg['id']; ?>" class="badge rounded-pill text-bg-primary text-decoration-none fw-bold float-end ms-1">detail</a>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <span><?= $brg['nama_barang'] ?></span>
+                        
+                        <div>
+                            <a href="<?= BASEURL; ?>/barang/detail/<?= $brg['id']; ?>" class="badge rounded-pill text-bg-primary text-decoration-none fw-bold">detail</a>
+                            
+                            <form action="<?= BASEURL; ?>/barang/hapus/<?= $brg['id'] ?>" method="post" class="d-inline m-0">
+                                <button type="submit" class="badge rounded-pill text-bg-danger border-0 ms-1" onclick="return confirm('Apakah anda benar ingin menghapus barang ini?');">hapus</button>
+                            </form>
+                        </div>
                     </li>
                 <?php endforeach; ?>
             </ul>
@@ -34,7 +41,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       
-      <form action="<?= BASEURL; ?>/barang/tambah" method="post">
+      <form action="<?= BASEURL; ?>/barang/tambah" method="post" autocomplete="off">
         <input type="hidden" name="id" id="id">
           <div class="modal-body">
                 <div class="form-group">
