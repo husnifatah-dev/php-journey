@@ -46,7 +46,7 @@ class Mahasiswa_model {
         return $this->db->rowCount();
     }
 
-        public function ubahDataMahasiswa($data) {
+    public function ubahDataMahasiswa($data) {
         $query = "UPDATE mahasiswa SET
                     nama = :nama,
                     nim = :nim,

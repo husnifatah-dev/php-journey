@@ -35,9 +35,8 @@ class Barang_model {
     }
 
     public function hapusDataBarang($id) {
-
         try {
-            $query = "DELETE FROM barang WHERE id = :id";
+            $query = "DELETE FROM " . $this->table . " WHERE id = :id";
             $this->db->query($query);
             $this->db->bind('id', $id);
     
@@ -45,8 +44,28 @@ class Barang_model {
     
             return $this->db->rowCount();
 
-    } catch (PDOException $e) {
-        return 0;
+        } catch (PDOException $e) {
+            return 0;
+        }
     }
+
+    public function ubahDataBarang($data) {
+        $query = "UPDATE " . $this->table . " SET
+                    nama_barang = :nama_barang,
+                    kategori = :kategori,
+                    stok = :stok
+                WHERE id = :id";
+                
+        $data['nama_barang'] = ucwords(strtolower($data['nama_barang']));
+        $data['kategori'] = ucwords(strtolower($data['kategori']));
+
+        $this->db->query($query);
+        $this->db->bind('nama_barang', $data['nama_barang']);
+        $this->db->bind('kategori', $data['kategori']);
+        $this->db->bind('stok', $data['stok']);
+        $this->db->bind('id', $data['id']);
+
+        $this->db->execute();
+        return $this->db->rowCount();
     }
 }

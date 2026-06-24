@@ -17,8 +17,13 @@ class Barang extends Controller {
         $this->view('templates/footer');
     }
 
-        
     public function tambah() {
+        // Proteksi agar hanya bisa diakses lewat Form POST
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            header('Location: ' . BASEURL . '/barang');
+            exit;
+        }
+
         if($this->model('Barang_model')->tambahBarang($_POST) > 0) {
             Flasher::setFlash('berhasil', 'ditambahkan', 'success');
         } else {
@@ -34,6 +39,7 @@ class Barang extends Controller {
             header('Location: ' . BASEURL . '/barang');
             exit;
         }
+
         try {
             if($this->model('Barang_model')->hapusDataBarang($id) > 0 ) {
                 Flasher::setFlash('berhasil', 'dihapus', 'success');
@@ -42,11 +48,32 @@ class Barang extends Controller {
             }
         } catch (Exception $e) {
             Flasher::setFlash('gagal', 'dihapus karena error sistem', 'danger');
-
         }
 
         header('Location: ' . BASEURL . '/barang');
         exit;
     }
+
+    public function getUbah() {
+        // Method ini aman karena diakses murni via AJAX POST dari View
+        echo json_encode($this->model('Barang_model')->getBarangById($_POST['id']));
+    }
     
+    public function ubah() {
+        // Proteksi agar hanya bisa diakses lewat Form POST
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            header('Location: ' . BASEURL . '/barang');
+            exit;
+        }
+
+        if($this->model('Barang_model')->ubahDataBarang($_POST) > 0 ) {
+            Flasher::setFlash('berhasil', 'diubah', 'success');
+        } else {
+            // Karena jika tidak ada data yang diganti rowCount bernilai 0,
+            // kita ubah pesannya agar lebih sesuai untuk UX
+            Flasher::setFlash('tidak ada yang', 'diubah', 'warning');
+        }
+        header('Location: ' . BASEURL . '/barang');
+        exit;
+    }
 }

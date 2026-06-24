@@ -1,26 +1,31 @@
 $(function() {
     $('.tombolTambahData').on('click', function() {
-        $('formModal').html('Tambah Data Mahasiswa');  
+        $('#judulModal').html('Tambah Data Barang');  
         $('.modal-footer button[type=submit]').html('Tambah Data');
-        $('#formModal from').attr('action', 'http://localhost/project1/public/mahasiswa/tambah');
+        $('#formModal form').attr('action', 'http://localhost/inventaris/public/barang/tambah');
+        
+        $('#id').val('');
+        $('#nama_barang').val('');
+        $('#kategori').val('');
+        $('#stok').val('');
+    
     });
 
     $('.tampilModalUbah').on('click', function() {
-        $('#judulModal').html('Ubah Data Mahasiswa');
+        $('#judulModal').html('Ubah Data Barang');
         $('.modal-footer button[type=submit]').html('Ubah Data');
-        $('#formModal form').attr('action', 'http://localhost/project1/public/mahasiswa/ubah');
+        $('#formModal form').attr('action', 'http://localhost/inventaris/public/barang/ubah');
 
         const id = $(this).data('id');
         $.ajax({
-            url: 'http://localhost/project1/public/mahasiswa/getubah',
+            url: 'http://localhost/inventaris/public/barang/getUbah',
             data: {id : id},
             method: 'post',
             dataType: 'json',
             success: function(data) {
-                $('#nama').val(data.nama);
-                $('#nim').val(data.nim);
-                $('#email').val(data.email);
-                $('#prodi').val(data.prodi);
+                $('#nama_barang').val(data.nama_barang);
+                $('#kategori').val(data.kategori);
+                $('#stok').val(data.stok);
                 $('#id').val(data.id);
             }
         });

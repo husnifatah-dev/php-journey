@@ -13,22 +13,25 @@
                         <span><?= $brg['nama_barang'] ?></span>
                         
                         <div>
-                            <a href="<?= BASEURL; ?>/barang/detail/<?= $brg['id']; ?>" class="badge rounded-pill text-bg-primary text-decoration-none fw-bold">detail</a>
+                            <a href="#" class="badge rounded-pill text-bg-success text-decoration-none fw-bold tampilModalUbah" data-bs-toggle="modal" data-bs-target="#formModal" data-id="<?= $brg['id'] ?>">ubah</a>
                             
                             <form action="<?= BASEURL; ?>/barang/hapus/<?= $brg['id'] ?>" method="post" class="d-inline m-0">
                                 <button type="submit" class="badge rounded-pill text-bg-danger border-0 ms-1" onclick="return confirm('Apakah anda benar ingin menghapus barang ini?');">hapus</button>
                             </form>
+                            
+                            <a href="<?= BASEURL; ?>/barang/detail/<?= $brg['id']; ?>" class="badge rounded-pill text-bg-primary text-decoration-none fw-bold ms-1">detail</a>
                         </div>
                     </li>
                 <?php endforeach; ?>
             </ul>
         </div>
     </div>
+    
     <div class="row mb-3">
-    <div class="col-lg-6 mt-3">
-        <button type="button" class="btn btn-primary tombolTambahData" data-bs-toggle="modal" data-bs-target="#formModal">
-            Tambah Data Barang
-        </button>
+        <div class="col-lg-6 mt-3">
+            <button type="button" class="btn btn-primary tombolTambahData" data-bs-toggle="modal" data-bs-target="#formModal">
+                Tambah Data Barang
+            </button>
         </div>
     </div>
 </div>
@@ -43,26 +46,29 @@
       
       <form action="<?= BASEURL; ?>/barang/tambah" method="post" autocomplete="off">
         <input type="hidden" name="id" id="id">
-          <div class="modal-body">
-                <div class="form-group">
-                    <label for="nama_barang" class="form-label">Nama Barang</label>
-                    <input type="text" class="form-control" id="nama_barang" name="nama_barang">
-                </div>
+        
+        <div class="modal-body">
+            <div class="form-group mb-3">
+                <label for="nama_barang" class="form-label">Nama Barang</label>
+                <input type="text" class="form-control" id="nama_barang" name="nama_barang" required>
+            </div>
 
-                <div class="form-group">
-                    <label for="kategori" class="form-label">Kategori</label>
-                    <input type="text" class="form-control" id="kategori" name="kategori">
-                </div>
+            <div class="form-group mb-3">
+                <label for="kategori" class="form-label">Kategori</label>
+                <input type="text" class="form-control" id="kategori" name="kategori" required>
+            </div>
 
-                <div class="form-group">
-                    <label for="stok" class="form-label">Stok</label>
-                    <input type="number" class="form-control" id="stok" name="stok">
-                </div>
-          </div>
-          <div class="modal-footer">
+            <div class="form-group mb-3">
+                <label for="stok" class="form-label">Stok</label>
+                <input type="number" class="form-control" id="stok" name="stok" required>
+            </div>
+        </div>
+        
+        <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
             <button type="submit" class="btn btn-primary">Tambah Data</button>
-          </div>
-      </form> </div>
+        </div>
+      </form> 
+    </div>
   </div>
 </div>
