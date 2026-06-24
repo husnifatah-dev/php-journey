@@ -68,4 +68,17 @@ class Barang_model {
         $this->db->execute();
         return $this->db->rowCount();
     }
+
+    public function cariDataBarang() {
+        $keyword = isset($_POST['keyword']) ? $_POST['keyword'] : '';
+
+        if (empty($keyword)) {
+            return $this->getAllBarang();
+        }
+        $query = "SELECT * FROM barang WHERE nama_barang LIKE :keyword";
+        $this->db->query($query);
+        $this->db->bind('keyword', "%$keyword%");
+        return $this->db->resultSet();
+
+    }
 }

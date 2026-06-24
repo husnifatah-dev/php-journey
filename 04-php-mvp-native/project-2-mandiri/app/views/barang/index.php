@@ -4,6 +4,25 @@
             <?php Flasher::flash(); ?>
         </div>
     </div>
+
+    <div class="row mb-3">
+        <div class="col-lg-6 mt-3">
+            <button type="button" class="btn btn-primary tombolTambahData" data-bs-toggle="modal" data-bs-target="#formModal">
+                Tambah Data Barang
+            </button>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-6">
+            <form action="<?= BASEURL; ?>/barang/cari" method="post">
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="cari barang..." aria-describedby="button-addon2" name="keyword" id="keyword" autocomplete="off">
+                    <button class="btn btn-primary" type="submit" id="tombolCari">Cari</button>
+                </div>
+            </form>
+        </div>
+    </div>
     <div class="row">
         <div class="col-lg-6">
             <h3>Daftar Barang</h3>
@@ -27,13 +46,6 @@
         </div>
     </div>
     
-    <div class="row mb-3">
-        <div class="col-lg-6 mt-3">
-            <button type="button" class="btn btn-primary tombolTambahData" data-bs-toggle="modal" data-bs-target="#formModal">
-                Tambah Data Barang
-            </button>
-        </div>
-    </div>
 </div>
 
 <div class="modal fade" id="formModal" tabindex="-1" aria-labelledby="judulModal" aria-hidden="true">

@@ -18,7 +18,6 @@ class Barang extends Controller {
     }
 
     public function tambah() {
-        // Proteksi agar hanya bisa diakses lewat Form POST
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
             header('Location: ' . BASEURL . '/barang');
             exit;
@@ -55,12 +54,10 @@ class Barang extends Controller {
     }
 
     public function getUbah() {
-        // Method ini aman karena diakses murni via AJAX POST dari View
         echo json_encode($this->model('Barang_model')->getBarangById($_POST['id']));
     }
     
     public function ubah() {
-        // Proteksi agar hanya bisa diakses lewat Form POST
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
             header('Location: ' . BASEURL . '/barang');
             exit;
@@ -69,11 +66,17 @@ class Barang extends Controller {
         if($this->model('Barang_model')->ubahDataBarang($_POST) > 0 ) {
             Flasher::setFlash('berhasil', 'diubah', 'success');
         } else {
-            // Karena jika tidak ada data yang diganti rowCount bernilai 0,
-            // kita ubah pesannya agar lebih sesuai untuk UX
             Flasher::setFlash('tidak ada yang', 'diubah', 'warning');
         }
         header('Location: ' . BASEURL . '/barang');
         exit;
+    }
+
+    public function cari() {
+        $data['judul'] = 'Daftar Barang';
+        $data['brg'] = $this->model('Barang_model')->cariDataBarang();
+        $this->view('templates/header', $data);
+        $this->view('barang/index', $data);
+        $this->view('templates/footer');
     }
 }
