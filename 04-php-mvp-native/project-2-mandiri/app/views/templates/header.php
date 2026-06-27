@@ -21,6 +21,7 @@
                 <li class="nav-item">
                 <a class="nav-link" href="<?=   BASEURL; ?>/barang">Barang</a>
                 </li>
+                <li class="nav-item"><a href="<?=  BASEURL; ?>/transaksi" class="nav-link">Transaksi</a></li>
                 <li class="nav-item">
                 <a class="nav-link" href="<?=   BASEURL; ?>/about">About</a>
                 </li>
