@@ -8,4 +8,15 @@ class Transaksi extends Controller {
         $this->view('transaksi/masuk', $data);
         $this->view('templates/footer', $data);
     }
+
+    public function simpanMasuk() {
+        if($this->model('Transaksi_model')->tambahDataBarangMasuk($_POST) > 0) {
+            Flasher::setFlash('berhasil', 'ditambah', 'success');
+        } else {
+            Flasher::setFlash('gagal', 'ditambah', 'danger');
+        }
+
+        header('Location: ' . BASEURL . '/transaksi');
+        exit;
+    }
 }
