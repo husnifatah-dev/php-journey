@@ -41,4 +41,11 @@ class PegawaiController extends Controller
         
         return redirect('/pegawai');
     }
+
+    public function destroy($id) {
+        $pegawai = Pegawai::find($id);
+        $pegawai->delete();
+
+        return redirect('/pegawai');
+    }
 }

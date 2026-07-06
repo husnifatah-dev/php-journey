@@ -23,7 +23,7 @@
             <option value="Malam" {{ $pegawai->shift == 'Malam' ? 'selected' : ''}}>Malam</option>
         </select><br><br>
 
-        <button type="submit">Simpan Data</button>
+        <button type="submit">Update Data</button>
     </form>
 
     <br>

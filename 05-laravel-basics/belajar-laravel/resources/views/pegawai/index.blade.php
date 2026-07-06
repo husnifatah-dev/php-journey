@@ -13,6 +13,7 @@
             <th>Posisi</th>
             <th>Shift</th>
             <th>Aksi</th>
+            <!-- <th>Aksoy</th> -->
         </tr>
 
         @foreach ($data_pegawai as $pegawai)
@@ -23,6 +24,15 @@
             <td>{{ $pegawai->shift }}</td>
             <td>
                 <a href="/pegawai/{{ $pegawai->id }}/edit">Edit</a>
+
+                <form action="/pegawai/{{ $pegawai->id }}" method="POST" style="display: inline; margin-left: 5px; ">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" onclick="return confirm('Apakah anda benar ingin menghapus data pegawai ini?')">
+                        Hapus
+                    </button>
+
+                </form>
             </td>
         </tr>
         @endforeach

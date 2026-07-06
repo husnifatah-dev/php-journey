@@ -13,3 +13,4 @@ Route::get('/pegawai/create', [PegawaiController::class, 'create']);
 Route::post('/pegawai', [PegawaiController::class, 'store']);
 Route::get('/pegawai/{id}/edit', [PegawaiController::class, 'edit']);
 Route::put('/pegawai/{id}', [PegawaiController::class, 'update']);
+Route::delete('/pegawai/{id}', [PegawaiController::class, 'destroy']);
