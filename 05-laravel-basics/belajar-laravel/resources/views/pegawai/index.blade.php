@@ -6,10 +6,23 @@
 </head>
 <body>
     <h1>Profil Pegawai Pabrik</h1>
-    <ul>
-        <li>Nama: <b>{{ $nama }}</b></li>
-        <li>Posisi: <b>{{ $posisi }}</b></li>
-    </ul>
+    <table border="1" cellpadding="10" cellspacing="0">
+        <tr style="background-color: black; color: white;"> 
+            <th>ID</th>
+            <th>Nama</th>
+            <th>Posisi</th>
+            <th>Shift</th>
+        </tr>
+
+        @foreach ($data_pegawai as $pegawai)
+        <tr>
+            <td>{{ $pegawai->id }}</td>
+            <td>{{ $pegawai->nama }}</td>
+            <td>{{ $pegawai->posisi }}</td>
+            <td>{{ $pegawai->shift }}</td>
+        </tr>
+        @endforeach
+    </table>
     
 
 </body>
