@@ -12,6 +12,7 @@
             <th>Nama</th>
             <th>Posisi</th>
             <th>Shift</th>
+            <th>Aksi</th>
         </tr>
 
         @foreach ($data_pegawai as $pegawai)
@@ -20,6 +21,9 @@
             <td>{{ $pegawai->nama }}</td>
             <td>{{ $pegawai->posisi }}</td>
             <td>{{ $pegawai->shift }}</td>
+            <td>
+                <a href="/pegawai/{{ $pegawai->id }}/edit">Edit</a>
+            </td>
         </tr>
         @endforeach
     </table>

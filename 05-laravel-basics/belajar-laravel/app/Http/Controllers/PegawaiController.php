@@ -26,4 +26,19 @@ class PegawaiController extends Controller
 
         return redirect('/pegawai');
     }
+
+    public function edit($id) {
+        $pegawai = Pegawai::find($id);
+        return view('pegawai.edit', compact('pegawai'));
+    }
+
+    public function update(Request $request, $id) {
+        Pegawai::find($id)->update([
+            'nama' => $request->nama,
+            'posisi' => $request->posisi,
+            'shift' => $request->shift
+        ]);
+        
+        return redirect('/pegawai');
+    }
 }
