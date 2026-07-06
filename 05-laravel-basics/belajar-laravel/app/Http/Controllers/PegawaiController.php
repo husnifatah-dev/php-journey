@@ -13,4 +13,17 @@ class PegawaiController extends Controller
         return view('pegawai.index', compact('data_pegawai'));
     }
 
+    public function create() {
+        return view('pegawai.create');
+    }
+
+    public function store(Request $request) {
+        Pegawai::create([
+            'nama' => $request->nama,
+            'posisi' => $request->posisi,
+            'shift' => $request->shift
+        ]);
+
+        return redirect('/pegawai');
+    }
 }
