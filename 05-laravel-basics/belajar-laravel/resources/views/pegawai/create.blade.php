@@ -12,6 +12,14 @@
         <label>Nama Pegawai</label>
         <input type="text" name="nama" required> <br><br>
 
+        <label>Departemen:</label>
+        <select name="departemen_id" id="departemen_id">
+            <option value="">-- Pilih Departemen --</option>
+            @foreach($departemen as $dpt)
+            <option value="{{ $dpt->id }}">{{ $dpt->nama_departemen }}</option>
+            @endforeach
+        </select> <br><br>
+
         <label>Posisi / Jabatan</label>
         <input type="text" name="posisi" required><br><br>
 

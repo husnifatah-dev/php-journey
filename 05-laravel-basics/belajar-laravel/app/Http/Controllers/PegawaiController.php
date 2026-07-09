@@ -4,24 +4,28 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Pegawai;
+use App\Models\Departemen;
 
 class PegawaiController extends Controller
 {
     public function index() {
-        $data_pegawai = Pegawai::all();
+        $data_pegawai = Pegawai::with('departemen')->get();
 
         return view('pegawai.index', compact('data_pegawai'));
     }
 
     public function create() {
-        return view('pegawai.create');
+        $departemen =  Departemen::all();
+        return view('pegawai.create', compact('departemen'));
     }
 
     public function store(Request $request) {
         Pegawai::create([
+            
             'nama' => $request->nama,
             'posisi' => $request->posisi,
-            'shift' => $request->shift
+            'shift' => $request->shift,
+            'departemen_id' => $request->departemen_id
         ]);
 
         return redirect('/pegawai');

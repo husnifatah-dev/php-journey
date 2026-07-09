@@ -10,6 +10,7 @@
         <tr style="background-color: black; color: white;"> 
             <th>ID</th>
             <th>Nama</th>
+            <th>Departemen</th>
             <th>Posisi</th>
             <th>Shift</th>
             <th>Aksi</th>
@@ -20,6 +21,7 @@
         <tr>
             <td>{{ $pegawai->id }}</td>
             <td>{{ $pegawai->nama }}</td>
+            <td>{{ $pegawai->departemen->nama_departemen ?? 'Belum ada departemen'}}</td>
             <td>{{ $pegawai->posisi }}</td>
             <td>{{ $pegawai->shift }}</td>
             <td>
