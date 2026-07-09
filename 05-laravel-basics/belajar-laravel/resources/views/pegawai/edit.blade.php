@@ -14,7 +14,14 @@
         <input type="text" name="nama" value="{{ $pegawai->nama }}" required><br><br>
 
         <label>Departemen</label>
-        <input type="text" name="departemen_id" value="{{ $pegawai->departemen_id }}" required> <br><br>
+        <select name="departemen_id" id="departemen_id">
+            <option value="">-- Pilih Departemen --</option>
+            @foreach($departemen as $dpt)
+            <option value="{{ $dpt->id }}" {{ $pegawai->departemen_id == $dpt->id ? 'selected' : ''}}>
+                {{ $dpt->nama_departemen }}
+            </option>
+            @endforeach
+        </select> <br><br>
 
         <label>Posisi / Jabatan</label>
         <input type="text" name="posisi" value="{{ $pegawai->posisi }}" required><br><br>
