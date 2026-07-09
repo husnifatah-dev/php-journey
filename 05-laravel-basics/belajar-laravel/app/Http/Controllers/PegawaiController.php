@@ -40,7 +40,8 @@ class PegawaiController extends Controller
         Pegawai::find($id)->update([
             'nama' => $request->nama,
             'posisi' => $request->posisi,
-            'shift' => $request->shift
+            'shift' => $request->shift,
+            'departemen_id' => $request->departemen_id
         ]);
         
         return redirect('/pegawai');
