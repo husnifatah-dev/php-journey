@@ -10,18 +10,30 @@
         @csrf
 
         <label>Nama Pegawai</label>
-        <input type="text" name="nama" required> <br><br>
+        <input type="text" name="nama" value="{{old('nama')}}" required> <br>
+        @error('nama')
+            <i style="color: red; font-size: 12px;">{{ $message }}</i>
+        @enderror 
+        <br>
 
         <label>Departemen:</label>
         <select name="departemen_id" id="departemen_id">
             <option value="">-- Pilih Departemen --</option>
             @foreach($departemen as $dpt)
-            <option value="{{ $dpt->id }}">{{ $dpt->nama_departemen }}</option>
+                <option value="{{ $dpt->id }}" {{ old('departemen_id') ==  $dpt->id ?'selected' : '' }}> {{$dpt->nama_departemen}}</option>
             @endforeach
-        </select> <br><br>
+        </select> <br>
+        @error('departemen_id')
+            <i style="color: red; font-size: 12px;">{{ $message }}</i>
+        @enderror
+        <br>
 
         <label>Posisi / Jabatan</label>
-        <input type="text" name="posisi" required><br><br>
+        <input type="text" name="posisi" value="{{old('posisi')}}" required><br>
+        @error('posisi')
+            <i style="color: red; font-size: 12px ">{{ $message }}</i>
+        @enderror
+        <br>
 
         <label>Shift</label>
         <select name="shift" id="shift">

@@ -20,10 +20,24 @@ class PegawaiController extends Controller
     }
 
     public function store(Request $request) {
+
+        $request->validate([
+            'nama' => 'required|min:3',
+            'posisi' => 'required|max: 30',
+            'shift' => 'required',
+            'departemen_id' => 'required'
+
+        ], [
+            'nama.required' => 'Nama pegawai wajib diisi!',
+            'nama.min' => 'Nama minimal harus 3 huruf.',
+            'posisi.required' => 'Posisi/ Jabatan tidak boleh kosong.',
+            'departemen_id' => 'Harus pilih departemennya.'
+        ]); 
+
         Pegawai::create([
             
-            'nama' => $request->nama,
-            'posisi' => $request->posisi,
+            'nama' => ucwords(strtolower(trim($request->nama))),
+            'posisi' => ucwords(strtolower(trim($request->posisi))),
             'shift' => $request->shift,
             'departemen_id' => $request->departemen_id
         ]);
@@ -40,8 +54,8 @@ class PegawaiController extends Controller
 
     public function update(Request $request, $id) {
         Pegawai::find($id)->update([
-            'nama' => $request->nama,
-            'posisi' => $request->posisi,
+            'nama' => ucwords(strtolower(trim($request->nama))),
+            'posisi' => ucwords(strtolower(trim($request->posisi))),
             'shift' => $request->shift,
             'departemen_id' => $request->departemen_id
         ]);
