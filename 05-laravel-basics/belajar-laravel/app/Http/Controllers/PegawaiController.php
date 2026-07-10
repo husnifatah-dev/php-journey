@@ -31,7 +31,7 @@ class PegawaiController extends Controller
             'nama.required' => 'Nama pegawai wajib diisi!',
             'nama.min' => 'Nama minimal harus 3 huruf.',
             'posisi.required' => 'Posisi/ Jabatan tidak boleh kosong.',
-            'departemen_id' => 'Harus pilih departemennya.'
+            'departemen_id.required' => 'Harus pilih departemennya.'
         ]); 
 
         Pegawai::create([
@@ -42,7 +42,7 @@ class PegawaiController extends Controller
             'departemen_id' => $request->departemen_id
         ]);
 
-        return redirect('/pegawai');
+        return redirect('/pegawai')->with('success', 'Data pegawai baru berhasil ditambahkan.');
     }
 
     public function edit($id) {
@@ -53,6 +53,19 @@ class PegawaiController extends Controller
     }
 
     public function update(Request $request, $id) {
+        $request->validate([
+            'nama' => 'required|min:3',
+            'posisi' => 'required|max:30',
+            'shift' => 'required',
+            'departemen_id' => 'required',
+        ], [
+            'nama.required' => 'Nama pegawai wajib diisi!',
+            'nama.min' => 'Nama minimal harus 3 huruf.',
+            'posisi.required' => 'Posisi / Jabatan tidak boleh kosong.',
+            'departemen_id.required' => 'Harus pilih departemenya.'
+
+        ]);
+
         Pegawai::find($id)->update([
             'nama' => ucwords(strtolower(trim($request->nama))),
             'posisi' => ucwords(strtolower(trim($request->posisi))),
@@ -60,13 +73,13 @@ class PegawaiController extends Controller
             'departemen_id' => $request->departemen_id
         ]);
         
-        return redirect('/pegawai');
+        return redirect('/pegawai')->with('success', 'Data pegawai berhasil diubah.');
     }
 
     public function destroy($id) {
         $pegawai = Pegawai::find($id);
         $pegawai->delete();
 
-        return redirect('/pegawai');
+        return redirect('/pegawai')->with('success', 'Data pegawai sudah dihapus dari sistem.');
     }
 }

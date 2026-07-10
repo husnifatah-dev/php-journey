@@ -6,6 +6,12 @@
 </head>
 <body>
     <h1>Profil Pegawai Pabrik</h1>
+    @if (session('success'))
+        <div style="background-color: lightgreen; color: darkgreen; padding: 10px; margin-bottom: 15px; border: 1px solid green;">
+            <b>NOTIFIKASI:</b> {{session('success')}}
+        </div>
+    @endif
+    <a href="/pegawai/create" style="display: inline-block; margin-bottom: 15px; text-decoration: none; background-color: blue; color: white; padding: 5px;  ">Tambah Pegawai Baru</a>
     <table border="1" cellpadding="10" cellspacing="0">
         <tr style="background-color: black; color: white;"> 
             <th>ID</th>
