@@ -1,10 +1,6 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <title> Tambah Pegawai </title>
-</head>
-<body>
+@extends('layouts.main')
+
+@section('content')
     <h1>FORM TAMBAH PEGAWAI BARU</h1>
     <form action="/pegawai" method="POST" style="border: 1px solid black; padding: 20px; width: 300px;">
         @csrf
@@ -46,5 +42,5 @@
     </form>
     <br>
     <a href="/pegawai">Kembali ke Daftar</a>
-</body>
-</html>
+
+@endsection

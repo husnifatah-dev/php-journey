@@ -1,10 +1,6 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <title>Data Pegawai</title>
-</head>
-<body>
+@extends('layouts.main')
+
+@section('content')
     <h1>Profil Pegawai Pabrik</h1>
     @if (session('success'))
         <div style="background-color: lightgreen; color: darkgreen; padding: 10px; margin-bottom: 15px; border: 1px solid green;">
@@ -12,8 +8,8 @@
         </div>
     @endif
     <a href="/pegawai/create" style="display: inline-block; margin-bottom: 15px; text-decoration: none; background-color: blue; color: white; padding: 5px;  ">Tambah Pegawai Baru</a>
-    <table border="1" cellpadding="10" cellspacing="0">
-        <tr style="background-color: black; color: white;"> 
+    <table>
+        <tr> 
             <th>ID</th>
             <th>Nama</th>
             <th>Departemen</th>
@@ -46,6 +42,4 @@
         @endforeach
     </table>
     
-
-</body>
-</html>
+@endsection

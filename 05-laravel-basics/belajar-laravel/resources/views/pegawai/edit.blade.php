@@ -1,10 +1,6 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <title>EDIT PEGAWAI</title>
-</head>
-<body>
+@extends('layouts.main')
+
+@section('content')
     <h1>Form Edit Data Pegawai</h1>
     <form action="/pegawai/{{ $pegawai->id }}" method="POST" style="border : 1px solid black; padding: 20px; width: 300px;">
         @csrf
@@ -51,5 +47,4 @@
     <br>
     <a href="/pegawai">Batal / Kembali</a>
     
-</body>
-</html>
+@endsection
