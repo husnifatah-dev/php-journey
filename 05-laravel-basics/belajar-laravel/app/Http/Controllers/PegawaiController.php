@@ -9,7 +9,7 @@ use App\Models\Departemen;
 class PegawaiController extends Controller
 {
     public function index() {
-        $data_pegawai = Pegawai::with('departemen')->get();
+        $data_pegawai = Pegawai::with('departemen')->paginate(5);
 
         return view('pegawai.index', compact('data_pegawai'));
     }

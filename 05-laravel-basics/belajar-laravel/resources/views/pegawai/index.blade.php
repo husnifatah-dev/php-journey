@@ -41,5 +41,8 @@
         </tr>
         @endforeach
     </table>
+    <div style="margin-top: 20px">
+        {{$data_pegawai->links()}}
+    </div>
     
 @endsection
