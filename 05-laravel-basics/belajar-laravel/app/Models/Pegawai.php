@@ -9,7 +9,7 @@ class Pegawai extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['nama', 'posisi', 'shift', 'departemen_id'];
+    protected $fillable = ['nama', 'posisi', 'shift', 'departemen_id', 'foto'];
 
     public function departemen() {
         return $this->belongsTo(Departemen::class);

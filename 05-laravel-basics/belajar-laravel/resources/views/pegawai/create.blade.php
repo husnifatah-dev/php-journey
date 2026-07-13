@@ -2,7 +2,7 @@
 
 @section('content')
     <h1>FORM TAMBAH PEGAWAI BARU</h1>
-    <form action="/pegawai" method="POST" style="border: 1px solid black; padding: 20px; width: 300px;">
+    <form action="/pegawai" method="POST" enctype="multipart/form-data" style="border: 1px solid black; padding: 20px; width: 300px;">
         @csrf
 
         <label>Nama Pegawai</label>
@@ -10,6 +10,13 @@
         @error('nama')
             <i style="color: red; font-size: 12px;">{{ $message }}</i>
         @enderror 
+        <br>
+
+        <label>Foto Profil (Opsional)</label>
+        <input type="file" name="foto">
+        @error('foto')
+            <i style="color: red; font-size: 12px;">{{ $message }}</i>
+        @enderror
         <br>
 
         <label>Departemen:</label>

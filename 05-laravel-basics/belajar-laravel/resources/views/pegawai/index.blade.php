@@ -16,6 +16,7 @@
         <tr> 
             <th>ID</th>
             <th>Nama</th>
+            <th>Foto</th>
             <th>Departemen</th>
             <th>Posisi</th>
             <th>Shift</th>
@@ -27,6 +28,13 @@
         <tr>
             <td>{{ $pegawai->id }}</td>
             <td>{{ $pegawai->nama }}</td>
+            <td>
+                @if($pegawai->foto)
+                <img src="{{asset('storage/' . $pegawai->foto) }}" alt="Foto" width="50" style="border-radius: 5px">
+                @else 
+                <i>Tidak ada</i>
+                @endif
+            </td>
             <td>{{ $pegawai->departemen->nama_departemen ?? 'Belum ada departemen'}}</td>
             <td>{{ $pegawai->posisi }}</td>
             <td>{{ $pegawai->shift }}</td>

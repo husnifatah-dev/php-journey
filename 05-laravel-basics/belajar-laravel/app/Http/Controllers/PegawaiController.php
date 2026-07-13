@@ -28,7 +28,7 @@ class PegawaiController extends Controller
 
         $request->validate([
             'nama' => 'required|min:3',
-            'posisi' => 'required|max: 30',
+            'foto' => 'nullable|image|mimes:jpg,jpeg,png,avg|max:2048',
             'shift' => 'required',
             'departemen_id' => 'required'
 
@@ -39,9 +39,15 @@ class PegawaiController extends Controller
             'departemen_id.required' => 'Harus pilih departemennya.'
         ]); 
 
+        $path_foto = null;
+        if ($request->hasFile('foto')) {
+            $path_foto = $request->file('foto')->store('foto_pegawai', 'public');
+        }
+
         Pegawai::create([
             
             'nama' => ucwords(strtolower(trim($request->nama))),
+            'foto' => $path_foto,
             'posisi' => ucwords(strtolower(trim($request->posisi))),
             'shift' => $request->shift,
             'departemen_id' => $request->departemen_id
