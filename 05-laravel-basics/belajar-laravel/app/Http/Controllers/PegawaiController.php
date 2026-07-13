@@ -8,8 +8,13 @@ use App\Models\Departemen;
 
 class PegawaiController extends Controller
 {
-    public function index() {
-        $data_pegawai = Pegawai::with('departemen')->paginate(5);
+    public function index(Request $request) {
+
+    $query = Pegawai::with('departemen');
+    if ($request->has('cari')) {
+        $query->where('nama', 'LIKE', '%'. $request->cari . '%');
+    }
+        $data_pegawai = $query->paginate(5);
 
         return view('pegawai.index', compact('data_pegawai'));
     }

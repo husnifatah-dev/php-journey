@@ -7,6 +7,10 @@
             <b>NOTIFIKASI:</b> {{session('success')}}
         </div>
     @endif
+    <form action="/pegawai" mrthod="GET" style="margin-bottom: 15px">
+        <input type="text" name="cari" placeholder="Cari nama pegawai..." value="{{ request('cari') }}" style="padding: 5px; width: 250px;">
+        <button type="submit" style="padding: 5px;">Cari</button>
+    </form>
     <a href="/pegawai/create" style="display: inline-block; margin-bottom: 15px; text-decoration: none; background-color: blue; color: white; padding: 5px;  ">Tambah Pegawai Baru</a>
     <table>
         <tr> 
@@ -42,7 +46,7 @@
         @endforeach
     </table>
     <div style="margin-top: 20px">
-        {{$data_pegawai->links()}}
+        {{$data_pegawai->withQueryString()->links()}}
     </div>
     
 @endsection
