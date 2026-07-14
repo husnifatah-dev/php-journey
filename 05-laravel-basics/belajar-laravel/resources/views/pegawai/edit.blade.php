@@ -2,7 +2,7 @@
 
 @section('content')
     <h1>Form Edit Data Pegawai</h1>
-    <form action="/pegawai/{{ $pegawai->id }}" method="POST" style="border : 1px solid black; padding: 20px; width: 300px;">
+    <form action="/pegawai/{{ $pegawai->id }}" method="POST" enctype="multipart/form-data" style="border : 1px solid black; padding: 20px; width: 300px;">
         @csrf
         @method('PUT')
 
@@ -12,6 +12,15 @@
             <i style="color: red;  font-size: 12px; ">{{$message}}</i>
         @enderror
         <br>
+
+        <label>Foto Profil Saat Ini</label>
+        @if($pegawai->foto)
+            <img src="{{ asset('storage/' . $pegawai->foto) }}" width="80" style="margin-bottom: 10px">
+        @else
+            <i>Belum ada foto</i>
+        @endif
+        <input type="file" name="foto"> 
+        <small style="color: gray">*Biarkan kosong jika tidak ingin mengganti foto</small><br>
 
         <label>Departemen</label>
         <select name="departemen_id" id="departemen_id">
