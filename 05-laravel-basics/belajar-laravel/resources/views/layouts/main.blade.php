@@ -24,9 +24,19 @@
     </style>
 </head>
 <body>
-    <div style="background-color: #f4f4f4; padding: 10px; margin-bottom: 20px;">
+    <div style="background-color: #f4f4f4; padding: 15px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center;">
         <h2 style="margin: 0;">Sistem Manajemen Pabrik</h2>
-        <a href="/pegawai">Data Pegawai</a> | <a href="#">Data Departemen</a>
+        <div>
+            <a href="/pegawai">Data Pegawai</a> | <a href="#">Data Departemen</a>
+        </div>
+    </div>
+
+    <div style="text-align: right">
+        <b>Halo, {{ auth()->user()->name }}!</b><br>
+        <form action="/logout" method="POST" style="margin-top: 5px;">
+            @csrf
+            <button type="submit" style="background-color: #ff4444; color: white; border: none; padding: 5px 15px; cursor: pointer; border-radius: 3px;">Logout</button>
+        </form>
     </div>
 
     @yield('content')
