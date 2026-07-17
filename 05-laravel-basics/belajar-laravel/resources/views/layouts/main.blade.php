@@ -3,46 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aplikasi Pabrik Laravel</title>
-    @vite(['resources/css/app.css', 'resouces/js/app.js'])
-
-    <style>
-        body {
-            font-family: sans-serif; padding: 20px;
-        }
-        table {
-            width: 100%; border-collapse: collapse; margin-top: 20px;
-        }
-        th, td {
-            border: 1px solid #ddd; padding: 8px; text-align: left;
-        }
-        th {
-            background-color: black; color: white;
-        }
-
-
-    </style>
+    <title>Sistem Manajemen Pabrik</title>
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body>
-    <div style="background-color: #f4f4f4; padding: 15px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center;">
-        <h2 style="margin: 0;">Sistem Manajemen Pabrik</h2>
-        <div>
-            <a href="/pegawai">Data Pegawai</a> | <a href="#">Data Departemen</a>
+<body class="bg-gray-100 text-gray-800 font-sans antialiased">
+    <nav class="bg-gray-900 text-white shadow-lg mb-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+
+                <a href="/pegawai" class="text-xl font-bold tracking-wider">
+                    Pabrik Laravel
+                </a>
+
+                <div class="flex items-center gap-4">
+                    <span class="text-sm text-gray-300">
+                        Halo, <b class="text-white">{{ auth()->user()->name }}</b>!
+                    </span>
+
+                    <form action="/logout" method="POST"
+                        onsubmit="return confirm('Yakin ingin logout?')">
+                        @csrf
+
+                        <button
+                            type="submit"
+                            class="bg-red-600 hover:bg-red-700 text-white text-sm font-semibold px-4 py-2 rounded-lg transition duration-200">
+                            Logout
+                        </button>
+                    </form>
+                </div>
+
+            </div>
         </div>
-    </div>
+    </nav>
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="bg-white p-6 rounded-lg shadow-md">
+            @yield('content')
+        </div>
+    </main>
 
-    <div style="text-align: right">
-        <b>Halo, {{ auth()->user()->name }}!</b><br>
-        <form action="/logout" method="POST" style="margin-top: 5px;">
-            @csrf
-            <button type="submit" style="background-color: #ff4444; color: white; border: none; padding: 5px 15px; cursor: pointer; border-radius: 3px;">Logout</button>
-        </form>
-    </div>
-
-    @yield('content')
-
-    <div style="margin-top: 30px; font-size: 12px; color: gray;">
-        &copy: 2026 - Dibuat oleh Husni Fatah (Backend Engineer)
-    </div>
+    <footer class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-8 mb-6 text-center text-gray-500 text-sm">
+        &copy; 2026 - Dibuat oleh Husni Fatah (Backend Engineer)
+    </footer>
 </body>
 </html>
