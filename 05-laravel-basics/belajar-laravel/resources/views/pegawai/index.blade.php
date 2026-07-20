@@ -61,13 +61,9 @@
                     <td class="px-6 py-4 whitespace-nowrap text-sm font-medium flex space-x-2">
                         <a href="/pegawai/{{ $pegawai->id }}/edit" class="bg-amber-500 hover:bg-amber-600 text-white py-1 px-3 rounded transition duration-200">Edit</a>
         
-                        <form action="/pegawai/{{ $pegawai->id }}" method="POST" class="inline-block">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="bg-red-500 hover:bg-red-600 text-white py-1 px-3 rounded transition duration-200" onclick="return confirm('Apakah anda benar ingin menghapus data pegawai ini?')">
+                        <button class="btn-hapus bg-red-500 hover:bg-red-600 text-white py-1 px-3 rounded transition duration-200" data-id="{{ $pegawai->id }}">
                                 Hapus
-                            </button>
-                        </form>
+                        </button>
                     </td>
                 </tr>
                 @endforeach
@@ -77,5 +73,4 @@
     <div class="mt-6">
         {{$data_pegawai->withQueryString()->links()}}
     </div>
-    
 @endsection

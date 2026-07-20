@@ -109,7 +109,7 @@ class PegawaiController extends Controller
         return redirect('/pegawai')->with('success', 'Data pegawai berhasil diubah.');
     }
 
-    public function destroy($id) {
+    public function destroy(Request $request, $id) {
         $pegawai = Pegawai::findOrFail($id);
 
         if ($pegawai->foto) {
@@ -117,6 +117,13 @@ class PegawaiController extends Controller
         }
 
         $pegawai->delete();
+
+        if ($request->wantsJson() || $request->ajax()) {
+            return response()->json([
+                'status' => 'success',
+                'pesan' => 'Data pegawai berhasil dimusnahkan!'
+            ]);
+        }
 
         return redirect('/pegawai')->with('success', 'Data pegawai sudah dihapus dari sistem.');
     }
