@@ -12,11 +12,17 @@ class PegawaiController extends Controller
     public function index(Request $request) {
 
     $query = Pegawai::with('departemen');
-    if ($request->filled('cari')) {
-        $query->where('nama', 'LIKE', '%'. $request->cari . '%')
+    if ($request->has('cari') && $request->cari != '') {
+        $query->where('nama', 'LIKE', "%{$request->cari}%")
             ->orWhere('posisi', 'LIKE', "%{$request->cari}%");
     }
         $data_pegawai = $query->paginate(5);
+
+        if ($request->wantsJson() || $request->ajax()) {
+            return response()->json([
+                'pegawais' => $data_pegawai->items()
+            ]);
+        }
 
         return view('pegawai.index', compact('data_pegawai'));
     }

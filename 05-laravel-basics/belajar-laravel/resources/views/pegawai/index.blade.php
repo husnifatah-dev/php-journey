@@ -15,8 +15,8 @@
         </div>
     @endif
 
-    <form action="/pegawai" method="GET" class="mb-6 flex">
-        <input type="text" name="cari" placeholder="Cari nama pegawai..." value="{{ request('cari') }}" class="border border-gray-300 rounded-l-md px-4 py-2 w-full md:w-1/3 focus:outline-none focus:ring-blue-500 focus:border-transparent">
+    <form action="/pegawai" method="GET" class="mb-6 flex" onsubmit="return false;">
+        <input type="text" name="cari" id="searchInput" placeholder="Cari nama pegawai..." value="{{ request('cari') }}" class="border border-gray-300 rounded-l-md px-4 py-2 w-full md:w-1/3 focus:outline-none focus:ring-blue-500 focus:border-transparent">
         <button type="submit" class="bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold px-4 py-2 border border-gray-300 border-l-0 rounded-r-md transition duration-200">
             Cari
         </button>
@@ -35,19 +35,20 @@
                     <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Aksi</th>
                 </tr>
             </thead>
-            <tbody class="bg-white divide-y divide-gray-200">
+            <!-- Pindahkan id="tableBody" ke sini -->
+            <tbody id="tableBody" class="bg-white divide-y divide-gray-200">
                 @foreach ($data_pegawai as $pegawai)
                 <tr class="hover:bg-gray-50 transition duration-150">
                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $pegawai->id }}</td>
                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 font-medium">{{ $pegawai->nama }}</td>
                     <td class="px-6 py-4 whitespace-nowrap">
                         @if($pegawai->foto)
-                            <img src="{{asset('storage/' . $pegawai->foto) }}" alt="Foto" class="h-12 w-12 object-cover rounded shadow-sm">
+                            <img src="{{ asset('storage/' . $pegawai->foto) }}" alt="Foto" class="h-12 w-12 object-cover rounded shadow-sm">
                         @else 
-                            <span>Tidak ada</span>
+                            <span class="text-sm text-gray-400 italic">Tidak ada</span>
                         @endif
                     </td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{{ $pegawai->departemen->nama_departemen ?? 'Belum ada departemen'}}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{{ $pegawai->departemen->nama_departemen ?? 'Belum ada' }}</td>
                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{{ $pegawai->posisi }}</td>
                     <td class="px-6 py-4 whitespace-nowrap">
                         @if($pegawai->shift == 'Pagi')
@@ -60,9 +61,8 @@
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap text-sm font-medium flex space-x-2">
                         <a href="/pegawai/{{ $pegawai->id }}/edit" class="bg-amber-500 hover:bg-amber-600 text-white py-1 px-3 rounded transition duration-200">Edit</a>
-        
                         <button class="btn-hapus bg-red-500 hover:bg-red-600 text-white py-1 px-3 rounded transition duration-200" data-id="{{ $pegawai->id }}">
-                                Hapus
+                            Hapus
                         </button>
                     </td>
                 </tr>
@@ -71,6 +71,6 @@
         </table>
     </div>
     <div class="mt-6">
-        {{$data_pegawai->withQueryString()->links()}}
+        {{ $data_pegawai->withQueryString()->links() }}
     </div>
 @endsection
