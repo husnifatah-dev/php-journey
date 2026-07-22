@@ -70,7 +70,7 @@
             </tbody>
         </table>
     </div>
-    <div class="mt-6">
+    <div class="mt-6" id="paginationContainer">
         {{ $data_pegawai->withQueryString()->links() }}
     </div>
 @endsection

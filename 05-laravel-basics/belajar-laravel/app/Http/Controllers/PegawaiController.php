@@ -20,7 +20,8 @@ class PegawaiController extends Controller
 
         if ($request->wantsJson() || $request->ajax()) {
             return response()->json([
-                'pegawais' => $data_pegawai->items()
+                'pegawais' => $data_pegawai->items(),
+                'pagination' => (string) $data_pegawai->withQueryString()->links()
             ]);
         }
 
