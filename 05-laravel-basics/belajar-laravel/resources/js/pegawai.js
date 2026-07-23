@@ -58,7 +58,18 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!button) return;
 
         const id = button.dataset.id;
-        if (!confirm('Yakin ingin menghapus data ini?')) return;
+        const result = await Swal.fire ({
+            title: 'Yakin mau memcat pegawai ini?',
+            text: "Data yang dihapus tidak bisa dikembalikan lagi!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#ef4444',
+            cancelButtonColor: '#9ca3af',
+            confirmButtonText: 'Ya, Hapus!',
+            cancelButtonText: 'Batal'
+        });
+
+        if (!result.isConfirmed) return;
 
         const tokenElement = document.querySelector('meta[name="csrf-token"]');
         if (!tokenElement) return alert('Error: Tag Meta CSRF-Token tidak ditemukan.');
@@ -80,12 +91,20 @@ document.addEventListener('DOMContentLoaded', () => {
                 const baris = button.closest('tr');
                 baris.classList.add('opacity-0', 'transition', 'duration-500');
                 setTimeout(() => baris.remove(), 500);
+
+                Swal.fire({
+                    title: 'Berhasil',
+                    text: 'Pegawai telah resmi diberhentikan.',
+                    icon: 'success',
+                    timer: 2000,
+                    showConfirmButton: false,
+                });
             } else {
-                alert('Gagal menghapus: ' + (data.pesan || 'Terjadi kesalahan internal.'));
+                Swal.fire('Gagal', data.pesan || 'Terjadi kesalahan internal.', 'error');
             }
         } catch (error) {
             console.error('Error saat hapus data:', error);
-            alert('Waduh, ada sistem yang error pas ngehapus data.');
+            Swal.fire('Oops!', 'Sistem ada yang error pas ngehapus data.', 'error');
         }
     });
 
@@ -99,6 +118,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
             debounceTimer = setTimeout(async () => {
                 try {
+                    tableBody.innerHTML = `<tr><td colspan="7" class="px-6 py-4 text-center text-gray-500 font-medium animate-pulse">Membuat data...</td></tr>`;
+
                     const response = await fetch(`/pegawai?cari=${keyword}`, {
                         headers: {
                             'Accept': 'application/json',
@@ -109,10 +130,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
                     const data = await response.json();
                     
-                    // Panggil fungsi pembuat baris tabel
                     renderTableRows(data.pegawais); 
 
-                    // PERBAIKAN: Update pagination DI LUAR perulangan tabel
                     if (paginationContainer) {
                         paginationContainer.innerHTML = data.pagination;
                     }
@@ -128,13 +147,15 @@ document.addEventListener('DOMContentLoaded', () => {
     // ==========================================
     if (paginationContainer) {
         paginationContainer.addEventListener('click', async (event) =>  {
-            const link = event.target.closest('a'); // Cari elemen <a> yang diklik
+            const link = event.target.closest('a');
             if (!link) return;
 
-            event.preventDefault(); // Cegah browser memuat ulang halaman
+            event.preventDefault();
             const url = link.href;
 
             try {
+                tableBody.innerHTML = `<tr><td colspan="7" class="px-6 py-4 text-center text-gray-500 font-medium animate-pulse">Membuat halaman...</td><tr>`;
+
                 const response = await fetch(url, {
                     headers: {
                         'Accept': 'application/json',
@@ -145,13 +166,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 const data = await response.json();
 
-                // Panggil fungsi pembuat baris tabel (Kode jauh lebih rapi!)
                 renderTableRows(data.pegawais);
 
-                // Update tombol pagination yang baru
                 paginationContainer.innerHTML = data.pagination;
 
-                // Opsional: Ubah URL di browser agar kalau user refresh halamannya tidak hilang
                 window.history.pushState(null, '', url);
             } catch (error) {
                 console.error('Error saat fetch pagination:', error);
