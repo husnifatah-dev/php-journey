@@ -176,4 +176,74 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+
+// ==========================================
+    // FITUR 4: SUBMIT FORM TAMBAH (AJAX + GAMBAR)
+    // ==========================================
+    const formTambah = document.getElementById('formTambah');
+    
+    if (formTambah) {
+        formTambah.addEventListener('submit', async function(event) {
+            event.preventDefault(); // Cegah reload halaman
+
+            // Ambil tombol submit untuk dibikin efek loading
+            const btnSubmit = this.querySelector('button[type="submit"]');
+            const teksAsli = btnSubmit.innerHTML;
+            btnSubmit.innerHTML = 'Menyimpan...';
+            btnSubmit.disabled = true;
+
+            // FormData otomatis membungkus semua inputan teks & file gambar sekaligus!
+            const formData = new FormData(this);
+
+            try {
+                const response = await fetch('/pegawai', {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                        'Accept': 'application/json',
+                        'X-Requested-With': 'XMLHttpRequest'
+                        // INGAT: JANGAN ADA 'Content-Type' DI SINI KARENA KITA PAKAI FORMDATA
+                    },
+                    body: formData
+                });
+
+                const data = await response.json();
+
+                // Deteksi kalau Laravel menolak karena validasi error (HTTP Status 422)
+                if (response.status === 422) {
+                    let errorList = '';
+                    // Looping pesan error dari Laravel untuk digabung
+                    for (const field in data.errors) {
+                        errorList += `${data.errors[field][0]}\n`;
+                    }
+                    Swal.fire('Validasi Gagal!', errorList, 'warning');
+                    return;
+                }
+
+                if (!response.ok) throw new Error('Terjadi kesalahan server');
+
+                // Kalau sukses, munculkan Swal lalu pindah ke halaman index
+                if (data.status === 'success') {
+                    Swal.fire({
+                        title: 'Berhasil!',
+                        text: data.pesan,
+                        icon: 'success',
+                        timer: 2000,
+                        showConfirmButton: false
+                    }).then(() => {
+                        window.location.href = '/pegawai'; // Arahkan kembali ke daftar pegawai
+                    });
+                }
+            } catch (error) {
+                console.error('Error Submit:', error);
+                Swal.fire('Waduh!', 'Gagal mengirim data ke server.', 'error');
+            } finally {
+                // Kembalikan tombol seperti semula
+                btnSubmit.innerHTML = teksAsli;
+                btnSubmit.disabled = false;
+            }
+        });
+    }
+
+
 });

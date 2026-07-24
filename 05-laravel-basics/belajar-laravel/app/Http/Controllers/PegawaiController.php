@@ -48,7 +48,7 @@ class PegawaiController extends Controller
             'posisi.required' => 'Posisi/ Jabatan tidak boleh kosong.',
             'shift.required' => 'Shift wajib dipilih.',
             'departemen_id.required' => 'Harus pilih departemennya.',
-            'departemen_id.exist' => 'Departemen yang dipilih tidak valid.'
+            'departemen_id.exists' => 'Departemen yang dipilih tidak valid.'
         ]); 
 
         $path_foto = null;
@@ -65,7 +65,14 @@ class PegawaiController extends Controller
             'departemen_id' => $request->departemen_id
         ]);
 
-        return redirect('/pegawai')->with('success', 'Data pegawai baru berhasil ditambahkan.');
+        if ($request->wantsJson() || $request->ajax()) {
+            return response()->json([
+                'status' => 'success',
+                'pesan'  => 'Pegawai baru berhasil didaftarkan!'
+            ]);
+        }
+
+        return redirect('/pegawai')->with('success', 'Data pegawai beserta foto berhasil ditambahkan!');
     }
 
     public function edit($id) {
