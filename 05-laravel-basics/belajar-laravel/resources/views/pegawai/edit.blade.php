@@ -8,7 +8,7 @@
     </div>
 
     <div class="bg-white border border-gray-200 rounded-lg shadow-sm p-6">
-        <form action="/pegawai/{{ $pegawai->id }}" method="POST" enctype="multipart/form-data" class="space-y-5">
+        <form class="space-y-5" id="formEdit" data-id="{{ $pegawai->id }}">
             @csrf
             @method('PUT')
 

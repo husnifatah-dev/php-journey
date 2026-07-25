@@ -119,6 +119,13 @@ class PegawaiController extends Controller
             'shift' => $request->shift,
             'departemen_id' => $request->departemen_id
         ]);
+
+        if ($request->wantsJson() || $request->ajax()) {
+            return response()->json([
+                'status' => 'success',
+                'pesan' => 'Data pegawai sukses diperbarui!'
+            ]);
+        }
         
         return redirect('/pegawai')->with('success', 'Data pegawai berhasil diubah.');
     }
