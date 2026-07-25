@@ -8,7 +8,7 @@
     </div>
 
     <div class="bg-white border border-gray-200 rounded-lg shadow-sm p-6">
-        <form action="/pegawai" method="POST" enctype="multipart/form-data" class="space-y-5" id="formTambah">
+        <form id="formTambah" class="space-y-5">
             @csrf
 
             <div>
