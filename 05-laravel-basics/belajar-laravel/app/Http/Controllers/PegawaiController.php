@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\Pegawai;
 use App\Models\Departemen;
 use Illuminate\Support\Facades\Storage;
+use App\Exports\PegawaiExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class PegawaiController extends Controller
 {
@@ -147,5 +149,10 @@ class PegawaiController extends Controller
         }
 
         return redirect('/pegawai')->with('success', 'Data pegawai sudah dihapus dari sistem.');
+    }
+
+    public function exportExcel()
+    {
+        return Excel::download(new PegawaiExport, 'Data_Pegawai_Pabrik.xlsx');
     }
 }

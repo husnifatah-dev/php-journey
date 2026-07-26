@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\PegawaiController;
 use App\Http\Controllers\AuthController;
+use App\Models\Pegawai;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -22,3 +23,5 @@ ROute::middleware('auth')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
 
 });
+
+Route::get('/pegawai/export/excel', [PegawaiController::class, 'exportExcel']);
