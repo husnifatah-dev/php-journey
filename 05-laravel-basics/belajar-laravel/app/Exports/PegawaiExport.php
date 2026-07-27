@@ -23,6 +23,7 @@ class PegawaiExport implements FromCollection, WithHeadings, WithMapping
             'ID',
             'Nama Pegawau',
             'Posisi / Jabatan',
+            'Departemen',
             'Shift',
             'Tanggal Didaftarkan'
         ];
