@@ -11,7 +11,7 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class PegawaiController extends Controller
 {
-    public function checkAdmin(Request $request) {
+    private function checkAdmin(Request $request) {
         if (auth()->user()->role !== 'admin') {
             if ($request->wantsJson() || $request->ajax()) {
                 abort(response()->json(['status' => 'error', 'pesan' => 'Akses ditolak! Anda bukan Admin.'], 403));
