@@ -11,6 +11,15 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class PegawaiController extends Controller
 {
+    public function checkAdmin(Request $request) {
+        if (auth()->user()->role !== 'admin') {
+            if ($request->wantsJson() || $request->ajax()) {
+                abort(response()->json(['status' => 'error', 'pesan' => 'Akses ditolak! Anda bukan Admin.'], 403));
+            }
+            abort(403, 'Akses Ditolak! Hanya Admin yang boleh melakukan aksi ini.');
+        }
+    }
+
     public function index(Request $request) {
 
     $query = Pegawai::with('departemen');
@@ -30,13 +39,14 @@ class PegawaiController extends Controller
         return view('pegawai.index', compact('data_pegawai'));
     }
 
-    public function create() {
+    public function create(Request $request) {
+        $this->checkAdmin($request);
         $departemen =  Departemen::all();
         return view('pegawai.create', compact('departemen'));
     }
 
     public function store(Request $request) {
-
+        $this->checkAdmin($request);
         $request->validate([
             'nama' => 'required|min:3',
             'foto' => 'nullable|image|mimes:jpg,jpeg,png,webp,avif|max:2048',
@@ -77,7 +87,8 @@ class PegawaiController extends Controller
         return redirect('/pegawai')->with('success', 'Data pegawai beserta foto berhasil ditambahkan!');
     }
 
-    public function edit($id) {
+    public function edit(Request $request, $id) {
+        $this->checkAdmin($request);
         $pegawai = Pegawai::findOrFail($id);
         $departemen = Departemen::all();
 
@@ -85,6 +96,7 @@ class PegawaiController extends Controller
     }
 
     public function update(Request $request, $id) {
+        $this->checkAdmin($request);
         $request->validate([
             'nama' => 'required|min:3',
             'foto' => 'nullable|image|mimes:jpg,jpeg,png,webp,avif|max:2048',
@@ -133,6 +145,7 @@ class PegawaiController extends Controller
     }
 
     public function destroy(Request $request, $id) {
+        $this->checkAdmin($request);
         $pegawai = Pegawai::findOrFail($id);
 
         if ($pegawai->foto) {
