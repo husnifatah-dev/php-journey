@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // ==========================================
     // FUNGSI BANTUAN: Untuk merender baris tabel
     // ==========================================
-    const renderTableRows = (pegawais) => {
+    const renderTableRows = (pegawais, isAdmin) => {
         tableBody.innerHTML = ''; 
 
         if (pegawais.length === 0) {
@@ -29,6 +29,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 : pegawai.shift === 'Siang' 
                 ? `<span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">Siang</span>` 
                 : `<span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-indigo-100 text-indigo-800">Malam</span>`;
+            
+            let aksiHtml = '';
+            if (isAdmin) {
+                aksiHtml = `
+                    <a href="/pegawai/${pegawai.id}/edit" class="bg-amber-500 hover:bg-amber-600 text-white py-1 px-3 rounded transition duration-200">Edit</a>
+                <button class="btn-hapus bg-red-500 hover:bg-red-600 text-white py-1 px-3 rounded transition duration-200" data-id="${pegawai.id}">Hapus</button>
+                `;
+            } else {
+                aksiHtml = `<span class="text-gray-400 italic">Tidak ada akses</span>`;
+            }
 
             const tr = `
                 <tr class="hover:bg-gray-50 transition duration-150">
@@ -39,10 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">${pegawai.posisi}</td>
                     <td class="px-6 py-4 whitespace-nowrap">${badgeShift}</td>
                     <td class="px-6 py-4 whitespace-nowrap text-sm font-medium flex space-x-2">
-                        <a href="/pegawai/${pegawai.id}/edit" class="bg-amber-500 hover:bg-amber-600 text-white py-1 px-3 rounded transition duration-200">Edit</a>
-                        <button class="btn-hapus bg-red-500 hover:bg-red-600 text-white py-1 px-3 rounded transition duration-200" data-id="${pegawai.id}">
-                            Hapus
-                        </button>
+                        ${aksiHtml}
                     </td>
                 </tr>
             `;
@@ -130,7 +137,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                     const data = await response.json();
                     
-                    renderTableRows(data.pegawais); 
+                    renderTableRows(data.pegawais, data.isAdmin); 
 
                     if (paginationContainer) {
                         paginationContainer.innerHTML = data.pagination;
@@ -166,7 +173,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 const data = await response.json();
 
-                renderTableRows(data.pegawais);
+                renderTableRows(data.pegawais, data.isAdmin);
 
                 paginationContainer.innerHTML = data.pagination;
 
