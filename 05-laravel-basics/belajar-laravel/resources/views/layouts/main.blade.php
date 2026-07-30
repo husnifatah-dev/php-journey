@@ -12,9 +12,23 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-16">
 
-                <a href="/pegawai" class="text-xl font-bold tracking-wider">
-                    Pabrik Laravel
-                </a>
+                <div class="flex items-center gap-6">
+                    <a href="/pegawai" class="text-xl font-bold tracking-wider">
+                        Pabrik Laravel
+                    </a>
+
+                    <a href="/dashboard" class="hover:text-blue-400 transition">
+                        Dashboard
+                    </a>
+
+                    <a href="/pegawai" class="hover:text-blue-400 transition">
+                        Pegawai
+                    </a>
+
+                    <a href="/departemen" class="hover:text-blue-400 transition">
+                        Departemen
+                    </a>
+                </div>
 
                 <div class="flex items-center gap-4">
                     <span class="text-sm text-gray-300">

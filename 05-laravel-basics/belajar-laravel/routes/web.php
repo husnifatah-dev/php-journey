@@ -4,6 +4,7 @@ use App\Http\Controllers\PegawaiController;
 use App\Http\Controllers\AuthController;
 use App\Models\Pegawai;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\DashboardController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -25,3 +26,4 @@ ROute::middleware('auth')->group(function () {
 });
 
 Route::get('/pegawai/export/excel', [PegawaiController::class, 'exportExcel']);
+Route::get('dashboard', [DashboardController::class, 'index']);
