@@ -60,6 +60,13 @@
                 <p class="text-2xl font-bold text-gray-800">{{ $totalDepartemen }}</p>
             </div>
         </div>
+
+        <div class="mt-8 bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+        <h3 class="text-lg font-bold text-gray-800 mb-6">Komposisi Shift Pegawai</h3>
+        <div class="w-full md:w-1/3 mx-auto">
+            <canvas id="shiftChart"></canvas>
+        </div>
+    </div>
     </div>
 
     <div class="flex space-x-4">
@@ -67,4 +74,11 @@
             Lihat Data Pegawai
         </a>
     </div>
+    <script>
+            window.statistikShift = {
+            pagi: {{ $shiftPagi }},
+            siang: {{ $shiftSiang }},
+            malam: {{ $shiftMalam }},
+        };
+    </script>
 @endsection
