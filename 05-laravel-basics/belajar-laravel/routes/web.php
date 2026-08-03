@@ -22,6 +22,10 @@ ROute::middleware('auth')->group(function () {
     Route::delete('/pegawai/{id}', [PegawaiController::class, 'destroy']);
 
     Route::post('/logout', [AuthController::class, 'logout']);
+    
+    Route::get('/pegawai/sampah', [PegawaiController::class, 'sampah']);
+    Route::post('/pegawai/{id}/restore', [PegawaiController::class, 'restore']);
+    Route::delete('/pegawai/{id}/force-delete', [PegawaiController::class, 'forceDelete']);
 
 });
 

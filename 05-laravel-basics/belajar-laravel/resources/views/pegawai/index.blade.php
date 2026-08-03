@@ -12,6 +12,10 @@
                 <a href="/pegawai/create" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded shadow transition duration-200">
                     Tambah Pegawai
                 </a>
+                <a href="/pegawai/sampah"
+                    class="bg-gray-600 hover:bg-gray-700 text-white font-semibold py-2 px-4 rounded shadow transition duration-200">
+                    🗑️ Tong Sampah
+                </a>
             @endif
         </div>
     </div>

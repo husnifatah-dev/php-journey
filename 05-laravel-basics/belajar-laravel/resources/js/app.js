@@ -3,4 +3,5 @@ window.Swal = Swal;
 import './pegawai';
 import './create';
 import './edit';
-import './dashboard'
+import './dashboard';
+import './restore';

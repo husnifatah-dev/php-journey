@@ -110,7 +110,7 @@ class PegawaiController extends Controller
             'posisi.required' => 'Posisi / Jabatan tidak boleh kosong.',
             'shift.required' => 'Shift wajib dipilih.',
             'departemen_id.required' => 'Harus pilih departemenya.',
-            'departemen_id.exist' => 'Departemen yang dipilih tidak valid.'
+            'departemen_id.exists' => 'Departemen yang dipilih tidak valid.'
 
         ]);
 
@@ -168,5 +168,44 @@ class PegawaiController extends Controller
     public function exportExcel()
     {
         return Excel::download(new PegawaiExport, 'Data_Pegawai_Pabrik.xlsx');
+    }
+
+    public function sampah(Request $request)
+    {
+        $this->checkAdmin($request);
+        $data_pegawai = Pegawai::onlyTrashed()->with('departemen')->latest()->paginate(5);
+
+        return view('pegawai.trash', compact('data_pegawai'));
+    }
+
+    public function restore(Request $request, $id)
+    {
+        $this->checkAdmin($request);
+        $pegawai = Pegawai::onlyTrashed()->findOrFail($id);
+        $pegawai->restore();
+
+        if ($request->wantsJson() || $request->ajax()) {
+            return response()->json(['status' => 'success', 'pesan' => 'Pegawai berhasil dikembalikan ke posisi semula!']);
+        }
+
+        return redirect('/pegawai/sampah');
+    }
+
+    public function forceDelete(Request $request, $id)
+    {
+        $this->checkAdmin($request);
+
+        $pegawai = Pegawai::onlyTrashed()->findOrFail($id);
+        if ($pegawai->foto) {
+            \Illuminate\Support\Facades\Storage::disk('public')->delete($pegawai->foto);
+        }
+
+        $pegawai->forceDelete();
+        if ($request->wantsJson() || $request->ajax()) {
+            return response()->json(['status' => 'success', 'pesan' => 'Data musnah tak tersisa dari database!']);
+        }
+    
+        return redirect('/pegawai/sampah');
+
     }
 }
