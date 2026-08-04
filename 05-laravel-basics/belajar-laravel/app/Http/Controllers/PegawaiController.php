@@ -149,20 +149,16 @@ class PegawaiController extends Controller
         $this->checkAdmin($request);
         $pegawai = Pegawai::findOrFail($id);
 
-        if ($pegawai->foto) {
-            Storage::disk('public')->delete($pegawai->foto);
-        }
-
         $pegawai->delete();
 
         if ($request->wantsJson() || $request->ajax()) {
             return response()->json([
                 'status' => 'success',
-                'pesan' => 'Data pegawai berhasil dimusnahkan!'
+                'pesan' => 'Pegawai dipindahkan ke tong sampah'
             ]);
         }
 
-        return redirect('/pegawai')->with('success', 'Data pegawai sudah dihapus dari sistem.');
+        return redirect('/pegawai')->with('success', 'Data pegawai dipindah ke tong sampah!');
     }
 
     public function exportExcel()
