@@ -7,7 +7,7 @@
 </head>
 <body style="font-family: sans-serif; text-align: center; margin-top: 10px;">
 
-    <h2>Gerbang Sistem Manajemen Pabrik</h2>
+    <h2>Login Sistem Manajemen Pabrik</h2>
 
     @if(session('error'))
         <p style="color: red;">{{session('error') }}</p>
