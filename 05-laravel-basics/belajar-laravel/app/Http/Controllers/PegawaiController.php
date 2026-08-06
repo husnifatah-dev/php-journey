@@ -8,6 +8,8 @@ use App\Models\Departemen;
 use Illuminate\Support\Facades\Storage;
 use App\Exports\PegawaiExport;
 use Maatwebsite\Excel\Facades\Excel;
+use App\Http\Requests\StorePegawaiRequest;
+use App\Http\Requests\UpdatePegawaiRequest;
 
 class PegawaiController extends Controller
 {
@@ -46,24 +48,9 @@ class PegawaiController extends Controller
         return view('pegawai.create', compact('departemen'));
     }
 
-    public function store(Request $request) {
+    public function store(StorePegawaiRequest $request) {
         $this->checkAdmin($request);
-        $request->validate([
-            'nama' => 'required|min:3',
-            'foto' => 'nullable|image|mimes:jpg,jpeg,png,webp,avif|max:2048',
-            'posisi' => 'required|max:30',
-            'shift' => 'required',
-            'departemen_id' => 'required|exists:departemens,id'
-
-        ], [
-            'nama.required' => 'Nama pegawai wajib diisi!',
-            'nama.min' => 'Nama minimal harus 3 huruf.',
-            'posisi.required' => 'Posisi/ Jabatan tidak boleh kosong.',
-            'shift.required' => 'Shift wajib dipilih.',
-            'departemen_id.required' => 'Harus pilih departemennya.',
-            'departemen_id.exists' => 'Departemen yang dipilih tidak valid.'
-        ]); 
-
+        
         $path_foto = null;
         if ($request->hasFile('foto')) {
             $path_foto = $request->file('foto')->store('foto_pegawai', 'public');
@@ -96,26 +83,12 @@ class PegawaiController extends Controller
         return view('pegawai.edit', compact('pegawai', 'departemen'));
     }
 
-    public function update(Request $request, $id) {
+    public function update(Request $request, $id) 
+    {
+        dd('masukkk');
         $this->checkAdmin($request);
-        $request->validate([
-            'nama' => 'required|min:3',
-            'foto' => 'nullable|image|mimes:jpg,jpeg,png,webp,avif|max:2048',
-            'posisi' => 'required|max:30',
-            'shift' => 'required',
-            'departemen_id' => 'required|exists:departemens,id',
-        ], [
-            'nama.required' => 'Nama pegawai wajib diisi!',
-            'nama.min' => 'Nama minimal harus 3 huruf.',
-            'posisi.required' => 'Posisi / Jabatan tidak boleh kosong.',
-            'shift.required' => 'Shift wajib dipilih.',
-            'departemen_id.required' => 'Harus pilih departemenya.',
-            'departemen_id.exists' => 'Departemen yang dipilih tidak valid.'
-
-        ]);
-
-        $pegawai = Pegawai::findOrFail($id);
         
+        $pegawai = Pegawai::findOrFail($id);
         $path_foto = $pegawai->foto;
         
         if ($request->hasFile('foto')) {
