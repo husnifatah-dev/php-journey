@@ -8,16 +8,9 @@
     </div>
 
     <div class="bg-white border border-gray-200 rounded-lg shadow-sm p-6">
-<form
-    id="formEdit"
-    class="space-y-5"
-    action="{{ url('/pegawai/' . $pegawai->id) }}"
-    method="POST"
-    enctype="multipart/form-data"
-    data-id="{{ $pegawai->id }}"
->
-    @csrf
-    @method('PUT')
+        <form class="space-y-5" id="formEdit" data-id="{{ $pegawai->id }}">
+            @csrf
+            @method('PUT')
 
             <div>
                 <label class="block text-sm font-medium text-gray-700 mb-1">Nama Pegawai <span class="text-red-500">*</span></label>

@@ -13,7 +13,7 @@ use App\Http\Requests\UpdatePegawaiRequest;
 
 class PegawaiController extends Controller
 {
-    private function checkAdmin(Request $request) {
+    private function checkAdmin($request) {
         if (auth()->user()->role !== 'admin') {
             if ($request->wantsJson() || $request->ajax()) {
                 abort(response()->json(['status' => 'error', 'pesan' => 'Akses ditolak! Anda bukan Admin.'], 403));
@@ -83,9 +83,8 @@ class PegawaiController extends Controller
         return view('pegawai.edit', compact('pegawai', 'departemen'));
     }
 
-    public function update(Request $request, $id) 
+    public function update(UpdatePegawaiRequest $request, $id) 
     {
-        dd('masukkk');
         $this->checkAdmin($request);
         
         $pegawai = Pegawai::findOrFail($id);
