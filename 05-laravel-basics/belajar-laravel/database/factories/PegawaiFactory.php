@@ -21,7 +21,8 @@ class PegawaiFactory extends Factory
             'nama' => fake()->name(),
             'posisi' => fake()->jobTitle(),
             'shift' => fake()->randomElement(['Pagi', 'Siang', 'Malam']),
-            'departemen_id' => \App\Models\Departemen::first()->id ?? 1
+            'departemen_id' => fake()->numberBetween(1, 3),
+            'foto' => null,
         ];
     }
 }
