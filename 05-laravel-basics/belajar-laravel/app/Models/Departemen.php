@@ -8,7 +8,7 @@ class Departemen extends Model
 {
     protected $fillable = [ 'nama_departemen' ];
     
-    public function pegawais() {
+    public function pegawai() {
         return $this->hasMany(Pegawai::class);
     }
 }
