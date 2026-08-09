@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Models\Pegawai;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\DepartemenController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -26,6 +27,7 @@ ROute::middleware('auth')->group(function () {
     Route::get('/pegawai/sampah', [PegawaiController::class, 'sampah']);
     Route::post('/pegawai/{id}/restore', [PegawaiController::class, 'restore']);
     Route::delete('/pegawai/{id}/force-delete', [PegawaiController::class, 'forceDelete']);
+    Route::resource('departemen', DepartemenController::class)->except(['create', 'show', 'edit']);
 
 });
 
