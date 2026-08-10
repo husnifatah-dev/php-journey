@@ -14,7 +14,13 @@ class Pegawai extends Model
     protected $fillable = ['nama', 'posisi', 'shift', 'departemen_id', 'foto'];
     protected $guarded = ['id'];
 
-    public function departemen() {
+    public function departemen() 
+    {
         return $this->belongsTo(Departemen::class);
+    }
+
+    public function pelatihans()
+    {
+        return $this->belongsToMany(Pelatihan::class, 'pegawai_pelatihan');
     }
 }
