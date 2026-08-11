@@ -28,6 +28,8 @@ class UpdatePegawaiRequest extends FormRequest
             'shift' => 'required|in:Pagi,Siang,Malam',
             'departemen_id' => 'required|exists:departemens,id',
             'foto' => 'nullable|image|mimes:jpg,jpeg,png,webp,avif|max:2048',
+            'pelatihan_id' => 'nullable|array',
+            'pelatihan_id.*' => 'exists:pelatihans,id',
         ];
     }
 }

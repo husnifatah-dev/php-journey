@@ -66,6 +66,18 @@
                 @enderror
             </div>
 
+            <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2">Pelatihan dan Sertifikasi</label>
+                <div class="space-y-2 bg-gray-50 p-4 rounded-md border border-gray-200">
+                    @foreach ($pelatihans as $pelatihan)
+                        <label class="inline-flex items-center w-full">
+                            <input type="checkbox" name="pelatihan_id[]" value="{{ $pelatihan->id }}" class="rounded border-gray-300 text-blue-600 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
+                            <span class="ml-2 text-gray-700 text-sm">{{ $pelatihan->nama_pelatihan }}</span>
+                        </label>
+                    @endforeach
+                </div>
+            </div>
+
             <div class="pt-4">
                 <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2.5 px-4 rounded-md transition duration-200">
                     Simpan Data

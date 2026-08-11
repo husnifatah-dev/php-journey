@@ -44,8 +44,9 @@ class PegawaiController extends Controller
 
     public function create(Request $request) {
         $this->checkAdmin($request);
-        $departemen =  Departemen::all();
-        return view('pegawai.create', compact('departemen'));
+        $departemen = \App\Models\Departemen::all();
+        $pelatihans = \App\Models\Pelatihan::all();
+        return view('pegawai.create', compact('departemen', 'pelatihans'));
     }
 
     public function store(StorePegawaiRequest $request) {
@@ -56,7 +57,7 @@ class PegawaiController extends Controller
             $path_foto = $request->file('foto')->store('foto_pegawai', 'public');
         }
 
-        Pegawai::create([
+        $pegawai = Pegawai::create([
             
             'nama' => ucwords(strtolower(trim($request->nama))),
             'foto' => $path_foto,
@@ -64,6 +65,7 @@ class PegawaiController extends Controller
             'shift' => $request->shift,
             'departemen_id' => $request->departemen_id
         ]);
+        $pegawai->pelatihans()->sync((array) $request->pelatihan_id);
 
         if ($request->wantsJson() || $request->ajax()) {
             return response()->json([
@@ -77,10 +79,11 @@ class PegawaiController extends Controller
 
     public function edit(Request $request, $id) {
         $this->checkAdmin($request);
-        $pegawai = Pegawai::findOrFail($id);
-        $departemen = Departemen::all();
+        $pegawai = Pegawai::with('pelatihans')->findOrFail($id);
+        $departemen = \App\Models\Departemen::all();
+        $pelatihans = \App\Models\Pelatihan::all();
 
-        return view('pegawai.edit', compact('pegawai', 'departemen'));
+        return view('pegawai.edit', compact('pegawai', 'departemen', 'pelatihans'));
     }
 
     public function update(UpdatePegawaiRequest $request, $id) 
@@ -106,6 +109,7 @@ class PegawaiController extends Controller
             'shift' => $request->shift,
             'departemen_id' => $request->departemen_id
         ]);
+        $pegawai->pelatihans()->sync((array) $request->pelatihan_id);
 
         if ($request->wantsJson() || $request->ajax()) {
             return response()->json([
