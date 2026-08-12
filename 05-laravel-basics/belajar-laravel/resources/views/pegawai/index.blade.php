@@ -44,6 +44,7 @@
                     <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Departemen</th>
                     <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Posisi</th>
                     <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Shift</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Pelatihan</th>
                     <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Aksi</th>
                 </tr>
             </thead>
@@ -70,6 +71,19 @@
                         @else
                             <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-indigo-100 text-indigo-800">Malam</span>
                         @endif
+                    </td>
+                    <td class="px-6 py-4 whitespace-normal">
+                        <div class="flex flex-wrap gap-1">
+                            @forelse($pegawai->pelatihans as $pelatihan)
+                                <span class="inline-block bg-indigo-100 text-indigo-800 text-[10px] font-bold px-2 py-1 rounded-md border border-indigo-200">
+                                    {{ $pelatihan->nama_pelatihan }}
+                                </span>
+                            @empty
+                                <span class="text-gray-400 italic text-xs">
+                                    Belum ada
+                                </span>
+                            @endforelse
+                        </div>
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap text-sm font-medium flex space-x-2">
                         @if(auth()->user()->role === 'admin')

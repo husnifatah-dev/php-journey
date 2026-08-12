@@ -24,7 +24,7 @@ class PegawaiController extends Controller
 
     public function index(Request $request) {
 
-    $query = Pegawai::with('departemen');
+    $query = Pegawai::with(['departemen', 'pelatihans']);
     if ($request->has('cari') && $request->cari != '') {
         $query->where('nama', 'LIKE', "%{$request->cari}%")
             ->orWhere('posisi', 'LIKE', "%{$request->cari}%");

@@ -30,6 +30,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 ? `<span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">Siang</span>` 
                 : `<span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-indigo-100 text-indigo-800">Malam</span>`;
             
+            let pelatihanHtml = '<div class="flex flex-wrap gap-1">';
+            if (pegawai.pelatihans && pegawai.pelatihans.length > 0) {
+                pelatihanHtml += pegawai.pelatihans.map(p => 
+                    `<span class="inline-block bg-indigo-100 text-indigo-800 text-[10px] font-bold px-2 py-1 rounded-md border border-indigo-200">${p.nama_pelatihan}</span>`
+                ).join('');
+            } else {
+                pelatihanHtml += `<span class="text-gray-400 italic text-xs">Belum ada</span>`;
+            }
+            pelatihanHtml += '</div>';
+            
             let aksiHtml = '';
             if (isAdmin) {
                 aksiHtml = `
@@ -48,6 +58,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">${departemen}</td>
                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">${pegawai.posisi}</td>
                     <td class="px-6 py-4 whitespace-nowrap">${badgeShift}</td>
+                    <td class="px-6 py-4 whitespace-normal">${pelatihanHtml}</td>
                     <td class="px-6 py-4 whitespace-nowrap text-sm font-medium flex space-x-2">
                         ${aksiHtml}
                     </td>
