@@ -33,7 +33,7 @@
                 <label class="block text-xs font-bold text-gray-500 uppercase tracking-wide mb-1">Departemen</label>
                 <select id="filterDeparetemen" class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm">
                     <option value="">Semua Departemen</option>
-                    @foreach($departemen as $dept)
+                    @foreach($departemens as $dept)
                         <option value="{{ $dept->id }}">{{ $dept->nama_departemen }}</option>
                     @endforeach
                 </select>

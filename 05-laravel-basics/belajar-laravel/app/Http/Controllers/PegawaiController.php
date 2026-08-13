@@ -24,7 +24,7 @@ class PegawaiController extends Controller
 
     public function index(Request $request) {
 
-    $departemens = \App\Models\Departemens::all();
+    $departemens = \App\Models\Departemen::all();
 
     $query = Pegawai::with(['departemen', 'pelatihans']);
     if ($request->has('cari') && $request->cari != '') {

@@ -79,7 +79,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const id = button.dataset.id;
         const result = await Swal.fire ({
-            title: 'Yakin mau memcat pegawai ini?',
+            title: 'Yakin mau memecat pegawai ini?',
             text: "Data yang dihapus tidak bisa dikembalikan lagi!",
             icon: 'warning',
             showCancelButton: true,
@@ -159,7 +159,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
     if (searchInput || filterDepartemen || filterShift) {
         if (searchInput) {
-            serachInput.addEventListener('input', () => {
+            searchInput.addEventListener('input', () => {
                 clearTimeout(debounceTimer);
                 debounceTimer = setTimeout(fetchData, 500);
             });
@@ -187,7 +187,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const url = link.href;
 
             try {
-                tableBody.innerHTML = `<tr><td colspan="7" class="px-6 py-4 text-center text-gray-500 font-medium animate-pulse">Membuat halaman...</td><tr>`;
+                tableBody.innerHTML = `<tr><td colspan="8" class="px-6 py-4 text-center text-gray-500 font-medium animate-pulse">Membuat halaman...</td><tr>`;
 
                 const response = await fetch(url, {
                     headers: {
