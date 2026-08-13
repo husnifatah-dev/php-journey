@@ -24,22 +24,34 @@ class PegawaiController extends Controller
 
     public function index(Request $request) {
 
+    $departemens = \App\Models\Departemens::all();
+
     $query = Pegawai::with(['departemen', 'pelatihans']);
     if ($request->has('cari') && $request->cari != '') {
-        $query->where('nama', 'LIKE', "%{$request->cari}%")
-            ->orWhere('posisi', 'LIKE', "%{$request->cari}%");
+        $query->where(function($q) use ($request) {
+            $q->where('nama', 'LIKE', "%{$request->cari}%")
+                ->orWhere('posisi', 'LIKE', "%{$request->cari}%");   
+        });
     }
-        $data_pegawai = $query->paginate(5);
 
-        if ($request->wantsJson() || $request->ajax()) {
-            return response()->json([
-                'pegawais' => $data_pegawai->items(),
-                'pagination' => (string) $data_pegawai->withQueryString()->links(),
-                'isAdmin' => auth()->user()->role === 'admin'
-            ]);
-        }
+    if ($request->has('shift') &&  $request->shift != '') {
+        $query->where('shift', $request->shift);
+    }
 
-        return view('pegawai.index', compact('data_pegawai'));
+    if ($request->has('departemen_id') && $request->departemen_id != '') {
+        $query->where('departemen_id', $request->departemen_id);
+    }
+                
+    $data_pegawai = $query->paginate(5);
+    if ($request->wantsJson() || $request->ajax()) {
+        return response()->json([
+            'pegawais' => $data_pegawai->items(),
+            'pagination' => (string) $data_pegawai->withQueryString()->links(),
+            'isAdmin' => auth()->user()->role === 'admin'
+        ]);
+    }
+
+    return view('pegawai.index', compact('data_pegawai', 'departemens'));
     }
 
     public function create(Request $request) {

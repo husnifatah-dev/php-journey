@@ -27,12 +27,34 @@
         </div>
     @endif
 
-    <form action="/pegawai" method="GET" class="mb-6 flex" onsubmit="return false;">
-        <input type="text" name="cari" id="searchInput" placeholder="Cari nama pegawai..." value="{{ request('cari') }}" class="border border-gray-300 rounded-l-md px-4 py-2 w-full md:w-1/3 focus:outline-none focus:ring-blue-500 focus:border-transparent">
-        <button type="submit" class="bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold px-4 py-2 border border-gray-300 border-l-0 rounded-r-md transition duration-200">
-            Cari
-        </button>
-    </form>
+    <div class="mb-6 bg-white p-4 rounded-lg shadow-sm border border-gray-200">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+            <div>
+                <label class="block text-xs font-bold text-gray-500 uppercase tracking-wide mb-1">Departemen</label>
+                <select id="filterDeparetemen" class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm">
+                    <option value="">Semua Departemen</option>
+                    @foreach($departemen as $dept)
+                        <option value="{{ $dept->id }}">{{ $dept->nama_departemen }}</option>
+                    @endforeach
+                </select>
+            </div>
+            <div>
+                <label class="block text-sm font-bold text-gray-500 uppercase tracking-wide mb-1">Shift</label>
+                <select id="filterShift" class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"> 
+                    <option value="">Semua Shift</option>
+                    <option value="Pagi">Pagi</option>
+                    <option vlaue="Siang">Siang</option>
+                    <option value="Malam">Malam</option>
+                </select>
+            </div>
+            <div class="md:col-span-2">
+                <label class="block text-xs font-bold text-gray-500 uppercase tarcking-wide mb-1">Cari Nama / Posisi</label>
+                <input type="text" id="searchInput" placeholder="Ketik nama pegawai...."
+                        class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm">
+            </div>
+        </div>
+
+    </div>
 
     <div class="overflow-x-auto border border-gray-200 rounded-lg shadow-sm">
         <table class="min-w-full divide-y divide-gray-200">

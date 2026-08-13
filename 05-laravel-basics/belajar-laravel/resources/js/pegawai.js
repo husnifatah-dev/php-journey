@@ -1,6 +1,8 @@
 document.addEventListener('DOMContentLoaded', () => {
 
     const searchInput = document.getElementById('searchInput');
+    const filterDepartemen = document.getElementById('filterDepartemen');
+    const filterShift = document.getElementById('filterShift');
     const tableBody = document.getElementById('tableBody');
     const paginationContainer = document.getElementById('paginationContainer');
     let debounceTimer;
@@ -129,36 +131,49 @@ document.addEventListener('DOMContentLoaded', () => {
     // ==========================================
     // FITUR 2: LIVE SEARCH
     // ==========================================
-    if (searchInput) {
-        searchInput.addEventListener('input', function() {
-            clearTimeout(debounceTimer);
-            const keyword = this.value;
+    const fetchData = async () => {
+        const keyword = searchInput ? searchInput.value : '';
+        const deptId = filterDepartemen ? filterDepartemen.value : '';
+        const shift = filterShift ? filterShift.value : '';
 
-            debounceTimer = setTimeout(async () => {
-                try {
-                    tableBody.innerHTML = `<tr><td colspan="7" class="px-6 py-4 text-center text-gray-500 font-medium animate-pulse">Membuat data...</td></tr>`;
+        const url = `/pegawai?cari=${keyword}&departemen_id=${deptId}&shift=${shift}`;
 
-                    const response = await fetch(`/pegawai?cari=${keyword}`, {
-                        headers: {
-                            'Accept': 'application/json',
-                            'X-Requested-With': 'XMLHttpRequest'
-                        }
-                    });
-                    if (!response.ok) throw new Error('Network response error');
-
-                    const data = await response.json();
-                    
-                    renderTableRows(data.pegawais, data.isAdmin); 
-
-                    if (paginationContainer) {
-                        paginationContainer.innerHTML = data.pagination;
-                    }
-                } catch (error) {
-                    console.error('Error saat fetch live search:', error);
+        try {
+            const response = await fetch(url, {
+                headers: {
+                    'Accept': 'application/json',
+                    'X-Requested-With' : 'XMLHttpRequest'
                 }
-            }, 500); 
-        });
+            });
+            if (!response.ok) throw new Error('Network response error');
+
+            const data = await response.json();
+            renderTableRows(data.pegawais, data.isAdmin);
+
+            if (paginationContainer) {
+                paginationContainer.innerHTML = data.pagination;
+            }
+        } catch (error) {
+            console.log('Error saat fetch data:', error);
+        }
+    };
+    if (searchInput || filterDepartemen || filterShift) {
+        if (searchInput) {
+            serachInput.addEventListener('input', () => {
+                clearTimeout(debounceTimer);
+                debounceTimer = setTimeout(fetchData, 500);
+            });
+        }
+        if (filterDepartemen) {
+            filterDepartemen.addEventListener('change', fetchData);
+        }
+    
+        if (filterShift) {
+            filterShift.addEventListener('change', fetchData);
+        }
+
     }
+
 
     // ==========================================
     // FITUR 3: AJAX PAGINATION (Tanpa Refresh)
