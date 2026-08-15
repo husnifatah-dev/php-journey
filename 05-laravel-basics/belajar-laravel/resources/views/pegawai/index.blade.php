@@ -31,7 +31,7 @@
         <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
             <div>
                 <label class="block text-xs font-bold text-gray-500 uppercase tracking-wide mb-1">Departemen</label>
-                <select id="filterDeparetemen" class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm">
+                <select id="filterDepartemen" class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm">
                     <option value="">Semua Departemen</option>
                     @foreach($departemens as $dept)
                         <option value="{{ $dept->id }}">{{ $dept->nama_departemen }}</option>
@@ -43,12 +43,12 @@
                 <select id="filterShift" class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"> 
                     <option value="">Semua Shift</option>
                     <option value="Pagi">Pagi</option>
-                    <option vlaue="Siang">Siang</option>
+                    <option value="Siang">Siang</option>
                     <option value="Malam">Malam</option>
                 </select>
             </div>
             <div class="md:col-span-2">
-                <label class="block text-xs font-bold text-gray-500 uppercase tarcking-wide mb-1">Cari Nama / Posisi</label>
+                <label class="block text-xs font-bold text-gray-500 uppercase tracking-wide mb-1">Cari Nama / Posisi</label>
                 <input type="text" id="searchInput" placeholder="Ketik nama pegawai...."
                         class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm">
             </div>
@@ -108,6 +108,9 @@
                         </div>
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap text-sm font-medium flex space-x-2">
+                        <button class="btn-detail bg-blue-500 hover:bg-blue-600 text-white py-1 px-3 rounded transition duration-200" data-id="{{ $pegawai->id }}">
+                            Detail
+                        </button>
                         @if(auth()->user()->role === 'admin')
                             <a href="/pegawai/{{ $pegawai->id }}/edit" class="bg-amber-500 hover:bg-amber-600 text-white py-1 px-3 rounded transition duration-200">Edit</a>
                             <button class="btn-hapus bg-red-500 hover:bg-red-600 text-white py-1 px-3 rounded transition duration-200" data-id="{{ $pegawai->id }}">
@@ -124,5 +127,45 @@
     </div>
     <div class="mt-6" id="paginationContainer">
         {{ $data_pegawai->withQueryString()->links() }}
+    </div>
+    <div id="modalDetail" class="fixed inset-0 z-50 hidden bg-black bg-opacity-50 flex items-center justify-center transition-opacity duration-300 opacity-0">
+        <div class="bg-white rounded-lg shadow-xl w-full max-w-md overflow-hidden transform scale-95 transition-transform duration-300 relative">
+
+            <div class="bg-gray-800 text-white px-6 py-4 flex justify-between items-center">
+                <h3 class="text-lg font-bold">Foto Profil Lengkap</h3>
+                <button id="btnCloseModal" class="text-gray-300 hover:text-white focus:outline-none">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                </button>
+            </div>
+
+            <div class="p-6">
+                <div class="flex items-center space-x-4 mb-6">
+                    <div id="modalFoto" class="modalFoto" class="h-20 w-20 rounded-full bg-gray-200 border-2 border-gray-300 flex items-center justify-center overflow-hidden">
+                        <!-- js -->
+                    </div>
+                    <div>
+                        <h4 id="modalNama" class="text-xl font-bold text-gray-900">Memuat...</h4>
+                        <p id="modalPosisi" class="text-sm text-gray-500">Memuat...</h4>
+                    </div>
+                </div>
+
+                <div class="space-y-3">
+                    <div class="flex justify-between border-b pb-2">
+                        <span class="text-sm font-medium text-gray-500">Departemen</span>
+                        <span id="modalDepartemen" class="text-sm text-gray-900 font-semibold">...</span>
+                    </div>
+                    <div class="flex justify-between border-b pb-2">
+                        <span class="text-sm font-medium text-gray-500">Shift</span>
+                        <span id="modalShift" class="text-sm text-gray-900 font-semibold">...</span>
+                    </div>
+                    <div>
+                        <span class="text-sm font-medium text-gray-500 block mb-2">Riwayat Pelatihan:</span>
+                        <div id="modalPelatihan" class="flex flex-warp gap-1">
+                            <!-- js -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 @endsection

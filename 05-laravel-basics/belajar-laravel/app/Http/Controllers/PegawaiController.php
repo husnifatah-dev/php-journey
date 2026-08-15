@@ -192,4 +192,17 @@ class PegawaiController extends Controller
         return redirect('/pegawai/sampah');
 
     }
+
+    public function show(Request $request, $id)
+    {
+        $pegawai = Pegawai::with(['departemen', 'pelatihans'])->findOrFail($id);
+
+        if ($request->wantsJson() || $request->ajax()) {
+            return response()->json([
+                'status' => 'success',
+                'data' => $pegawai
+            ]);
+        }
+        return abort(404, 'Halaman ini khusus diakses via AJAX.');
+    }
 }
