@@ -108,12 +108,12 @@
                         </div>
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap text-sm font-medium flex space-x-2">
-                        <button class="btn-detail bg-blue-500 hover:bg-blue-600 text-white py-1 px-3 rounded transition duration-200" data-id="{{ $pegawai->id }}">
+                        <button class="btn-detail bg-blue-500 hover:bg-blue-600 text-white py-1 px-3 rounded transition duration-200 cursor-pointer" data-id="{{ $pegawai->id }}">
                             Detail
                         </button>
                         @if(auth()->user()->role === 'admin')
                             <a href="/pegawai/{{ $pegawai->id }}/edit" class="bg-amber-500 hover:bg-amber-600 text-white py-1 px-3 rounded transition duration-200">Edit</a>
-                            <button class="btn-hapus bg-red-500 hover:bg-red-600 text-white py-1 px-3 rounded transition duration-200" data-id="{{ $pegawai->id }}">
+                            <button class="btn-hapus bg-red-500 hover:bg-red-600 text-white py-1 px-3 rounded transition duration-200 cursor-pointer" data-id="{{ $pegawai->id }}">
                                 Hapus
                             </button>
                         @else
