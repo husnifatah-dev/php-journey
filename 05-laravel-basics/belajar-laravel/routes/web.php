@@ -29,6 +29,7 @@ ROute::middleware('auth')->group(function () {
     Route::post('/pegawai/{id}/restore', [PegawaiController::class, 'restore']);
     Route::delete('/pegawai/{id}/force-delete', [PegawaiController::class, 'forceDelete']);
     Route::resource('departemen', DepartemenController::class)->except(['create', 'show', 'edit']);
+    Route::get('/pegawai/{id}/cetak-id-card', [PegawaiController::class, 'cetakIdCard']);
 
 });
 

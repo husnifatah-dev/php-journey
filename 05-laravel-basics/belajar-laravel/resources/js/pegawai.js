@@ -258,16 +258,11 @@ document.addEventListener('DOMContentLoaded', () => {
                     const result = await response.json();
                     const p = result.data;
 
-                    console.log('HASIL RESPONSE:', result);
-console.log('DATA PEGAWAI:', p);
-console.log('NAMA:', p.nama);
-console.log('DEPARTEMEN:', p.departemen);
-console.log('PELATIHANS:', p.pelatihans);
-
                     document.getElementById('modalNama').innerText = p.nama;
                     document.getElementById('modalPosisi').innerText = p.posisi;
                     document.getElementById('modalDepartemen').innerText = p.departemen?.nama_departemen ?? 'Belum ada';
                     document.getElementById('modalShift').innerText = p.shift;
+                    document.getElementById('btnCetakIdCard').href = `/pegawai/${id}/cetak-id-card`;
 
                     const fotoContainer = document.getElementById('modalFoto');
                     if (p.foto) {

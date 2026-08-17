@@ -10,6 +10,7 @@ use App\Exports\PegawaiExport;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Requests\StorePegawaiRequest;
 use App\Http\Requests\UpdatePegawaiRequest;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class PegawaiController extends Controller
 {
@@ -204,5 +205,15 @@ class PegawaiController extends Controller
             ]);
         }
         return abort(404, 'Halaman ini khusus diakses via AJAX.');
+    }
+
+    public function cetakIdCard($id)
+    {
+        $pegawai = Pegawai::with('departemen')->findOrFail($id);
+        $pdf = Pdf::loadView('pegawai.id-card', compact('pegawai'));
+        $pdf->setPaper('a6', 'portrait');
+        $namaFile = 'ID-CARD-' . str_replace(' ', '-', strtoupper($pegawai->nama)) . '.pdf';
+        
+        return $pdf->download($namaFile);
     }
 }
