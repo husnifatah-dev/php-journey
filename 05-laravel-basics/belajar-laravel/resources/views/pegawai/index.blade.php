@@ -9,7 +9,7 @@
                 Export Excel
             </a>
             @if(auth()->user()->role === 'admin')
-                <button onclick="document.getElementById('modalImport').classList.remove('hidden')" class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 px-4 rounded shadow transition duration-200">
+                <button onclick="document.getElementById('modalImport').classList.remove('hidden')" class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 px-4 rounded shadow transition duration-200 cursor-pointer">
                     Import Data
                 </button>
                 <a href="/pegawai/create" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded shadow transition duration-200">
@@ -193,7 +193,7 @@
                 <input type="file" name="file_excel" accept=".xlsx, .xls, .csv" required class="w-full border border-gray-300 rounded p-2 mb-4">
 
                 <div class="flex justify-end space-x-3">
-                    <button type="button" onclik="document.getElementById('modalImport').classList.add('hidden')" class="bg-gray-200 hover:bg-gray-300 text-gray-800 py-2 px-4 rounded">Batal</button>
+                    <button type="button" onclick="document.getElementById('modalImport').classList.add('hidden')" class="bg-gray-200 hover:bg-gray-300 text-gray-800 py-2 px-4 rounded">Batal</button>
                     <button type="submit" class="bg-indigo-600 hover:bg-indigo-700 text-white py-2 px-4 rounded">Upload & Simpan</button>
                 </div>
             </form>
