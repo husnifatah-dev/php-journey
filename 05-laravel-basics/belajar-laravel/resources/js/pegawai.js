@@ -286,4 +286,44 @@ document.addEventListener('DOMContentLoaded', () => {
             } 
         });
     }
+
+    // ==========================================
+    // FITUR 8: IMPORT EXCEL
+    // ========================================== 
+    const formImportExcel = document.getElementById('formImportExcel');
+
+    if (formImportExcel) {
+        formImportExcel.addEventListener('submit', async function(event) {
+            event.preventDefault();
+            const btnSubmit = this.querySelector('button[type="submit"]');
+            btnSubmit.innerHTML = 'Mengupload...';
+            btnSubmit.disabled = true;
+
+            const formData = new FormData(this);
+
+            try {
+                const response = await fetch('/pegawai/import/excel', {
+                    method: 'POST',
+                    headers: { 'X-Requested-With': 'XMLHttpRequest' },
+                    body: formData
+                });
+
+                const data = await response.json();
+
+                if (data.status === 'success') {
+                    Swal.fire({ title: 'Berhasil!', text: data.pesan, icon: 'success', timer: 2000, showConfirmButton: false })
+                    .then(() => {
+                        window.location.reload();
+                    });
+                } else {
+                    Swal.fire('Gagal!', data.pesan, 'error');
+                }
+            } catch (error) {
+                Swal.fire('Error Server!', 'Gagal mengupload file.', 'error');
+            } finally {
+                btnSubmit.innerHTML = 'Upload & Simpan';
+                btnSubmit.disabled = false;
+            }
+        });
+    }
 });

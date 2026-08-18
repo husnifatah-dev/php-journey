@@ -10,6 +10,7 @@ use App\Exports\PegawaiExport;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Requests\StorePegawaiRequest;
 use App\Http\Requests\UpdatePegawaiRequest;
+use App\Imports\PegawaiImport;
 use Barryvdh\DomPDF\Facade\Pdf;
 
 class PegawaiController extends Controller
@@ -215,5 +216,32 @@ class PegawaiController extends Controller
         $namaFile = 'ID-CARD-' . str_replace(' ', '-', strtoupper($pegawai->nama)) . '.pdf';
         
         return $pdf->download($namaFile);
+    }
+
+    public function importExcel(Request $request)
+    {
+        $this->checkAdmin($request);
+
+        $request->validate([
+            'file_excel' => 'required|mimes:xlsx,xls,csv|max:5120'
+        ]);
+
+        try {
+            $file = $request->file('file_excel');
+
+            Excel::import(new PegawaiImport, $file);
+
+            if ($request->wantsJson() || $request->ajax()) {
+                return response()->json(['status' => 'success', 'pesan' => 'Data berhasil masuk ke database!']);
+            }
+
+            return back()->with('success', 'Data Pegawai berhasil di import!');
+        } catch (\Exception $e) {
+            if ($request->wantsJson() || $request->ajax()) {
+                return response()->json(['status' => 'error', 'pesan' => 'Format Excel salah atau data yang tidak valid. Pastikan judul kolom sesuai dengan template.']);
+            }
+
+            return back()->with('error', 'Gagal Import! Pesan Error: ' . $e->getMessage());
+        }
     }
 }

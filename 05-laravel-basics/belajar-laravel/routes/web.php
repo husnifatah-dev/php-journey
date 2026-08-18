@@ -30,7 +30,7 @@ ROute::middleware('auth')->group(function () {
     Route::delete('/pegawai/{id}/force-delete', [PegawaiController::class, 'forceDelete']);
     Route::resource('departemen', DepartemenController::class)->except(['create', 'show', 'edit']);
     Route::get('/pegawai/{id}/cetak-id-card', [PegawaiController::class, 'cetakIdCard']);
-
+    ROute::post('/pegawai/import/excel', [PegawaiController::class, 'importExcel']);
 });
 
 Route::get('/pegawai/export/excel', [PegawaiController::class, 'exportExcel']);

@@ -9,6 +9,9 @@
                 Export Excel
             </a>
             @if(auth()->user()->role === 'admin')
+                <button onclick="document.getElementById('modalImport').classList.remove('hidden')" class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 px-4 rounded shadow transition duration-200">
+                    Import Data
+                </button>
                 <a href="/pegawai/create" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded shadow transition duration-200">
                     Tambah Pegawai
                 </a>
@@ -172,6 +175,28 @@
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+    <div id="modalImport" class="fixed inset-0 z-50 hidden bg-black bg-opacity-50 flex items-center justify-center">
+        <div class="bg-white rounded-lg shadow-xl w-full max-w-md p-6">
+            <h3 class="text-lg font-bold mb-4">Import Data dari Excel</h3>
+            <p class="text-sm text-gray-500 mb-4">
+                Pastikan baris pertama Excel Anda memiliki judul kolom: <br>
+                <code class="bg-gray-100 text-red-600 px-1 py-0.5 rounded">nama_pegawai</code>,
+                <code class="bg-gray-100 text-red-600 px-1 py-0.5 rounded">posisi</code>,
+                <code class="bg-gray-100 text-red-600 px-1 py-0.5 rounded">shift</code>,
+                <code class="bg-gray-100 text-red-600 px-1 py-0.5 rounded">id_departemen</code>,
+            </p>
+
+            <form id="formImportExcel" enctype="multipart/form-data">
+                @csrf
+                <input type="file" name="file_excel" accept=".xlsx, .xls, .csv" required class="w-full border border-gray-300 rounded p-2 mb-4">
+
+                <div class="flex justify-end space-x-3">
+                    <button type="button" onclik="document.getElementById('modalImport').classList.add('hidden')" class="bg-gray-200 hover:bg-gray-300 text-gray-800 py-2 px-4 rounded">Batal</button>
+                    <button type="submit" class="bg-indigo-600 hover:bg-indigo-700 text-white py-2 px-4 rounded">Upload & Simpan</button>
+                </div>
+            </form>
         </div>
     </div>
 @endsection
