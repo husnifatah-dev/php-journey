@@ -52,12 +52,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
             `;
             if (isAdmin) {
-                aksiHtml = `
+                aksiHtml += `
                     <a href="/pegawai/${pegawai.id}/edit" class="bg-amber-500 hover:bg-amber-600 text-white py-1 px-3 rounded transition duration-200">Edit</a>
                 <button class="btn-hapus bg-red-500 hover:bg-red-600 text-white py-1 px-3 rounded transition duration-200" data-id="${pegawai.id}">Hapus</button>
                 `;
             } else {
-                aksiHtml = `<span class="text-gray-400 italic">Tidak ada akses</span>`;
+                aksiHtml += `<span class="text-gray-400 italic">Tidak ada akses</span>`;
             }
 
             const tr = `
