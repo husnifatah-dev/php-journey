@@ -30,10 +30,17 @@
                     </a>
                 </div>
 
-                <div class="flex items-center gap-4">
-                    <span class="text-sm text-gray-300">
-                        Halo, <b class="text-white">{{ auth()->user()->name }}</b>!
-                    </span>
+                <div class="flex items-center space-x-3">
+                    <a href="/profil" class="flex items-center space-x-2 text-gray-300 hover:text-indigo-600 transition">
+                        @if(auth()->user()->foto_profil)
+                            <img class="h-8 w-8 object-cover rounded-full border border-gray-300" src="{{ asset('storage/' . auth()->user()->foto_profil) }}" alt="Foto">
+                        @else
+                            <div class="h-8 w-8 rounded-full bg-indigo-600 flex items-center justify-center text-white font-bold text-xs">
+                                {{ substr(auth()->user()->name, 0, 1) }}
+                            </div>
+                        @endif
+                        <span class="font-medium text-sm hidden md:block">{{ auth()->user()->name }}</span>
+                    </a>
 
                     <form action="/logout" method="POST"
                         onsubmit="return confirm('Yakin ingin logout?')">
@@ -41,7 +48,7 @@
 
                         <button
                             type="submit"
-                            class="bg-red-600 hover:bg-red-700 text-white text-sm font-semibold px-4 py-2 rounded-lg transition duration-200">
+                            class="bg-red-600 hover:bg-red-700 text-white text-sm font-semibold px-4 py-2 rounded-lg transition duration-200 cursor-pointer">
                             Logout
                         </button>
                     </form>

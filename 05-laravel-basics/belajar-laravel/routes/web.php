@@ -6,6 +6,7 @@ use App\Models\Pegawai;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DepartemenController;
+use App\Http\Controllers\ProfileController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -30,7 +31,9 @@ ROute::middleware('auth')->group(function () {
     Route::delete('/pegawai/{id}/force-delete', [PegawaiController::class, 'forceDelete']);
     Route::resource('departemen', DepartemenController::class)->except(['create', 'show', 'edit']);
     Route::get('/pegawai/{id}/cetak-id-card', [PegawaiController::class, 'cetakIdCard']);
-    ROute::post('/pegawai/import/excel', [PegawaiController::class, 'importExcel']);
+    Route::post('/pegawai/import/excel', [PegawaiController::class, 'importExcel']);
+    Route::get('/profil', [ProfileController::class, 'edit']);
+    Route::post('/profil', [ProfileController::class, 'update']);
 });
 
 Route::get('/pegawai/export/excel', [PegawaiController::class, 'exportExcel']);
