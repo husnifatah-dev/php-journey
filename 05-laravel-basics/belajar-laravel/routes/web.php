@@ -34,6 +34,7 @@ ROute::middleware('auth')->group(function () {
     Route::post('/pegawai/import/excel', [PegawaiController::class, 'importExcel']);
     Route::get('/profil', [ProfileController::class, 'edit']);
     Route::post('/profil', [ProfileController::class, 'update']);
+    Route::post('/profil/password', [ProfileController::class, 'updatePassword']);
 });
 
 Route::get('/pegawai/export/excel', [PegawaiController::class, 'exportExcel']);

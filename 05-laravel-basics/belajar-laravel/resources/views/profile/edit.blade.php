@@ -26,7 +26,7 @@
                     </div>
                     <label class="block">
                         <span class="sr-only">Pilih foto profil</span>
-                        <input type="file" name="foto_profil" accept="image/*" class="block w-full text-sm text-gray-500 file:mr-4 file:px-4 file:py-2 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file-text-700 hover:file:bg-indigo-100"/>
+                        <input type="file" name="foto_profil" accept="image/*" class="block w-full text-sm text-gray-500 file:mr-4 file:px-4 file:py-2 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-700 hover:file:bg-indigo-100"/>
                         <p class="text-xs text-gray-500 mt-2">JPG, PNG atau JPEG (Maks. 2MB)</p>
                     </label>
                 </div>
@@ -38,13 +38,60 @@
 
                 <div class="mb-6">
                     <label class="block text-gray-700 text-sm font-bold mb-2">Alamat Email (Tidak bisa diubah)</label>
-                    <input type="email" value="{{ $user->email }}" disabled class="w-full border border-gray-300 bg-gray-100 rounded-md px-3 py-2 text-gray-500 cursor-notallowed">
+                    <input type="email" value="{{ $user->email }}" disabled class="w-full border border-gray-300 bg-gray-100 rounded-md px-3 py-2 text-gray-500 cursor-not-allowed">
                 </div>
 
                 <button type="submit" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-6 rounded transition duration-200">
                     Simpan Perubahan
                 </button>
             </form>
+        </div>
+        <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200 mt-8">
+            <h3 class="text-xl font-bold text-gray-800 mb-4">Ubah Password</h3>
+
+            @if(session('success_password'))
+                <div class="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 mb-6 rounded">
+                    {{ session('success_password') }}
+                </div>
+            @endif
+
+            <form action="/profil/password" method="POST">
+                @csrf
+
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-bold mb-2">Password Saat Ini</label>
+                    <input type="password" name="password_lama" required class="w-full border @error('password_lama') border-red-500 @else border-gray-300 @enderror rounded-md px-3 py-2 focus:ring-2 focus:ring-indigo-500">
+                    @error('password_lama')
+                        <p class="text-red-500 text-xs italic mt-1">{{ $message }}</p>
+                    @enderror
+                </div>
+
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-bold mb-2">Password Baru (Min. 8 Karakter)</label>
+                    <input type="password" name="password_baru" required class="w-full border @error('password_baru') border-red-500 @else border-gray-300 @enderror rounded-md px-3 py-2 focus:ring-2 focus:ring-indigo-500">
+                    @error('password_baru')
+                        <p class="text-red-500 text-xs italic mt-1">{{ $message }}</p>
+                    @enderror
+                </div>
+
+                <div class="mb-6">
+                    <label class="block text-gray-700 text-sm font-bold mb-2">Konfirmasi Password Baru</label>
+                    <input type="password" name="password_baru_confirmation" required class="w-full border border-gray-300 rounded-md px-3 py-2 focus:ring-2 focus:ring-indigo-500"> 
+                </div>
+
+                <button type="submit" class="bg-gray-800 hover:bg-gray-900 text-white font-bold py-2 px-6 rounded transition duration-200">
+                    Update Password
+                </button>
+            </form>
+        </div>
+
+        <div class="mt-8 mb-6">
+            <a href="/pegawai" class="inline-flex items-center text-sm font-medium text-gray-600 hover:text-indigo-600 transition duration-150">
+                <svg class="w-5 h-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+                </svg>
+                Kembali
+            </a>
         </div>
     </div>
 @endsection
