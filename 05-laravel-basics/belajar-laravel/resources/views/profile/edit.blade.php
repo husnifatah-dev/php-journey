@@ -41,6 +41,14 @@
                     <input type="email" value="{{ $user->email }}" disabled class="w-full border border-gray-300 bg-gray-100 rounded-md px-3 py-2 text-gray-500 cursor-not-allowed">
                 </div>
 
+                <div class="mb-6 bg-blue-50 border border-blue-100 p-3 rounded-md">
+                    <p class="text-sm text-blue-800">
+                        <span class="font-bold">Aktivitas Terakhir:</span> 
+                        Kamu terakhir kali login pada 
+                        {{ $user->last_login_at ? \Carbon\Carbon::parse($user->last_login_at)->translatedFormat('l, d F Y H:i') : 'Belum ada catatan' }}
+                    </p>
+                </div>
+
                 <button type="submit" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-6 rounded transition duration-200">
                     Simpan Perubahan
                 </button>
