@@ -9,3 +9,4 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:sanctum');
 
 Route::get('/pegawai', [PegawaiApiController::class, 'index']);
+Route::post('/pegawai', [PegawaiApiController::class, 'store']);
