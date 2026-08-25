@@ -10,3 +10,6 @@ Route::get('/user', function (Request $request) {
 
 Route::get('/pegawai', [PegawaiApiController::class, 'index']);
 Route::post('/pegawai', [PegawaiApiController::class, 'store']);
+Route::get('/pegawai/{id}', [PegawaiApiController::class, 'show']);
+Route::put('/pegawai/{id}', [PegawaiApiController::class, 'update']);
+Route::delete('/pegawai/{id}', [PegawaiApiController::class, 'destroy']);
