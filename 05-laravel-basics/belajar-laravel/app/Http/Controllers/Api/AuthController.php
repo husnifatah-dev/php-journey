@@ -43,4 +43,15 @@ class AuthController extends Controller
             'message' => 'Logout berhasil, token telah dihapus'
         ], 200);
     }
+
+    public function me(Request $request)
+    {
+        $user = $request->user();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Data profil berhasil diambil',
+            'data' => $user,
+        ], 200);
+    }
 }
