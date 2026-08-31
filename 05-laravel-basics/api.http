@@ -1,0 +1,18 @@
+### Cek Daftar Pegawai (Contoh request selanjutnya)
+GET http://localhost:8000/api/pegawai/1
+
+
+### Tambah Pegawai Baru
+POST http://localhost:8000/api/pegawai
+Content-Type: application/json
+
+{
+    "nama": "Harry Maguire",
+    "posisi": "Bek",
+    "shift": "Siang",
+    "departemen_id": 1
+}
+
+## Hapus Pegawai
+
+DELETE http://localhost:8000/api/pegawai/196
