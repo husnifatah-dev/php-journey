@@ -12,6 +12,7 @@ use App\Http\Requests\StorePegawaiRequest;
 use App\Http\Requests\UpdatePegawaiRequest;
 use App\Imports\PegawaiImport;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\Log;
 
 class PegawaiController extends Controller
 {
@@ -80,6 +81,9 @@ class PegawaiController extends Controller
             'departemen_id' => $request->departemen_id
         ]);
         $pegawai->pelatihans()->sync((array) $request->pelatihan_id);
+        
+        Log::info('Pegawai baru ditambahkan: ' . $request->nama . ' oleh user ID: ' . auth()->id());
+
 
         if ($request->wantsJson() || $request->ajax()) {
             return response()->json([
@@ -138,6 +142,8 @@ class PegawaiController extends Controller
     public function destroy(Request $request, $id) {
         $this->checkAdmin($request);
         $pegawai = Pegawai::findOrFail($id);
+
+        Log::info('Data pegawai dihapus: ' . $pegawai->nama . ' oleh user ID: ' . auth()->id());
 
         $pegawai->delete();
 
