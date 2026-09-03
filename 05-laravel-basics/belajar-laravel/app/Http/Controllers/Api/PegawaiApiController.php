@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\PegawaiRequest;
 use App\Models\Pegawai;
 use Illuminate\Http\Request;
 
@@ -19,16 +20,9 @@ class PegawaiApiController extends Controller
         ], 200);
     }
 
-    public function store(Request $request)
+    public function store(PegawaiRequest $request)
     {
-        $request->validate([
-            'nama' => 'required|string|max:255',
-            'posisi' => 'required|string|max:255',
-            'shift' => 'required|in:Pagi,Siang,Malam',
-            'departemen_id' => 'required|exists:departemens,id',
-        ]);
-
-        $pegawai = Pegawai::create([
+       $pegawai = Pegawai::create([
             'nama' => $request->nama,
             'posisi' => $request->posisi,
             'shift' => $request->shift,
@@ -53,16 +47,9 @@ class PegawaiApiController extends Controller
         ], 200);
     }
 
-    public function update(Request $request, $id)
+    public function update(PegawaiRequest $request, $id)
     {
         $pegawai = Pegawai::findOrFail($id);
-
-        $request->validate([
-            'nama' => 'required|string|max:255',
-            'posisi' => 'required|string|max:255',
-            'shift' => 'required|in:Pagi,Siang,Malam',
-            'departemen_id' => 'required|exists:departemens,id'
-        ]);
 
         $pegawai->update([
             'nama' => $request->nama,
