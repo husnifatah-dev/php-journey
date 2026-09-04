@@ -29,4 +29,15 @@ class PegawaiRequest extends FormRequest
             'departemen_id' => 'required|exists:departemens,id'
         ];
     }
+    
+    public function message(): array 
+    {
+        return [
+            'nama.required' => 'Nama pegawai wajib diisi!',
+            'posisi.required' => 'Posisi atau jabatan tidak boleh kosong.',
+            'shift.in' => 'Pilih shift hanya boleh Pagi, Siang atau Malam.',
+            'departemen_id.required' => 'Departemen wajib dipilih.',
+            'departemen_id.exists' => 'Departemen yang dipilih tidak terdaftar di sistem.'
+        ];
+    }
 }
