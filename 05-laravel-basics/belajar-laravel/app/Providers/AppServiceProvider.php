@@ -2,8 +2,10 @@
 
 namespace App\Providers;
 
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Auth\Events\Login;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Event;
 
 class AppServiceProvider extends ServiceProvider
@@ -21,6 +23,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        Model::preventLazyLoading(! app()->isProduction());
+        Gate::define('is-admin', function ($user) {
+            return $user->role === 'admin';
+        });
+        
         Event::listen(Login::class, function ($event) {
             $event->user->update([
                 'last_login_at' => now()
